@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+                   logicalFilePath="db/changelog/create-tables/04-create-table-auction.xml">
+
+    <changeSet id="04-create-table-auction" author="michal.bialek">
+        <createTable tableName="auction">
+            <column name="auction_id" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="start_date_time" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end_date_time" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="photo_url" type="VARCHAR(512)"/>
+            <column name="city" type="VARCHAR(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="base_price" type="NUMERIC(7,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="bool">
+                <constraints nullable="false"/>
+            </column>
+            <column name="link_to_thread" type="VARCHAR(512)"/>
+            <column name="fk_winner_id" type="BIGINT"/>
+            <column name="win_price" type="NUMERIC(4,2)"/>
+            <column name="moderator_id" type="BIGINT"/>
+            <column name="supplier_id" type="BIGINT"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="auction" baseColumnNames="fk_winner_id"
+                                 constraintName="fk_auction_winner"
+                                 referencedTableName="participant" referencedColumnNames="participant_id"/>
+
+        <addForeignKeyConstraint baseTableName="auction" baseColumnNames="moderator_id"
+                                 constraintName="fk_auction_moderator"
+                                 referencedTableName="moderator" referencedColumnNames="moderator_id"/>
+
+        <addForeignKeyConstraint baseTableName="auction" baseColumnNames="supplier_id"
+                                 constraintName="fk_auction_supplier"
+                                 referencedTableName="supplier" referencedColumnNames="supplier_id"/>
+    </changeSet>
+
+</databaseChangeLog>
