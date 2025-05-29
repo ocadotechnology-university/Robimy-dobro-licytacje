@@ -6,7 +6,6 @@ import com.slack.api.bolt.jakarta_socket_mode.SocketModeApp;
 import com.slack.api.methods.SlackApiException;
 import com.slack.api.methods.request.files.FilesUploadRequest;
 import com.slack.api.methods.response.files.FilesUploadResponse;
-import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,30 +24,41 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Collections;
 
+
 @Configuration
 @Slf4j
-@AllArgsConstructor
 public class SlackSocketModeConfig {
     public static final String START_AUKJE_COMMAND = "/start_aukcje";
 
-    @Value("${slack.bot-token}")
-    private String botToken;
+    private final String botToken;
+    private final String appToken;
 
-    @Value("${slack.app-token}")
-    private String appToken;
-
-    @NonNull
     private final GeneralSlackAuctionServiceImpl generalSlackAuctionServiceImpl;
-    @NonNull
     private final AuctionActivationServiceImpl auctionActivationServiceImpl;
-    @NonNull
     private final AuctionEndServiceImpl auctionEndServiceImpl;
-    @NonNull
     private final BidButtonHandler bidButtonHandler;
-    @NonNull
     private final BidModalHandler bidModalHandler;
-    @NonNull
     private final CsvReportServiceImpl csvReportService;
+
+    public SlackSocketModeConfig(
+            @Value("${slack.bot-token}") String botToken,
+            @Value("${slack.app-token}") String appToken,
+            @NonNull GeneralSlackAuctionServiceImpl generalSlackAuctionServiceImpl,
+            @NonNull AuctionActivationServiceImpl auctionActivationServiceImpl,
+            @NonNull AuctionEndServiceImpl auctionEndServiceImpl,
+            @NonNull BidButtonHandler bidButtonHandler,
+            @NonNull BidModalHandler bidModalHandler,
+            @NonNull CsvReportServiceImpl csvReportService
+    ) {
+        this.botToken = botToken;
+        this.appToken = appToken;
+        this.generalSlackAuctionServiceImpl = generalSlackAuctionServiceImpl;
+        this.auctionActivationServiceImpl = auctionActivationServiceImpl;
+        this.auctionEndServiceImpl = auctionEndServiceImpl;
+        this.bidButtonHandler = bidButtonHandler;
+        this.bidModalHandler = bidModalHandler;
+        this.csvReportService = csvReportService;
+    }
 
     @Bean
     public SocketModeApp socketModeApp(App app) throws Exception {
@@ -78,8 +88,8 @@ public class SlackSocketModeConfig {
             try {
                 final LocalDate date = LocalDate.parse(text.trim());
                 generalSlackAuctionServiceImpl.createAuctionThreadAndPostOnChannel(date, ctx);
-                auctionActivationServiceImpl.activateScheduledAuction(ctx);
-                auctionEndServiceImpl.endAuctions(ctx);
+                auctionActivationServiceImpl.activateScheduledAuction();
+                auctionEndServiceImpl.endAuctionsManual(ctx);
 
                 return ctx.ack("Aukcje dla " + date + " zostały przygotowane");
             } catch (Exception e) {
@@ -123,7 +133,7 @@ public class SlackSocketModeConfig {
     }
 
 
-    //TODO - DODANIE KOMENDY, do generowania raortu
+    //TODO - DODANIE KOMENDY, do generowania raportu
 
 
 }

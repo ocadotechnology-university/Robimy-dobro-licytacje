@@ -29,6 +29,10 @@ public class AuctionRepository {
         return auctionInfrastructureToDomainMapper.map(allByStartDateTimeBetween);
     }
 
+    public void save(@NonNull final Auction auction) {
+        AuctionEntity entity = auctionDomainToInfrastructureMapper.map(auction);
+        auctionRepositoryDao.save(entity);
+    }
 
     public void saveAll(@NonNull final List<Auction> allByStartDateTimeBetween) {
         Collection<AuctionEntity> mapped = auctionDomainToInfrastructureMapper.map(allByStartDateTimeBetween);
