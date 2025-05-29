@@ -1,0 +1,33 @@
+spring:
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.xml
+    contexts: dev
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/licytacje
+    username: postgres
+    password: postgres
+    hikari:
+      idle-timeout: 10000
+      connectionTimeout: 20000
+      minimumIdle: 10
+      maximumPoolSize: 20
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  application:
+    name: ocado-licytacje
+server:
+  port: 8190
+  servlet:
+    context-path: /licytacje
+logging:
+  file:
+    name: logs/app.log
+
+

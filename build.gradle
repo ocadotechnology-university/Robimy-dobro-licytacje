@@ -1,0 +1,108 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.4.4'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'prw.edu.pl'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    //Spring boot
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+    // annotations
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    //mappers
+    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+    annotationProcessor "org.projectlombok:lombok-mapstruct-binding:${lombokMapstructBindingVersion}"
+
+    //db
+    implementation 'org.liquibase:liquibase-core'
+    runtimeOnly 'org.postgresql:postgresql'
+    testRuntimeOnly 'com.h2database:h2'
+    testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+
+    //dev
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    //test
+    testImplementation 'org.testcontainers:junit-jupiter'
+    testImplementation 'org.testcontainers:postgresql'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    testImplementation 'com.github.springtestdbunit:spring-test-dbunit:1.3.0'
+    testImplementation 'org.dbunit:dbunit:2.8.0'
+
+    // api
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springDocOpenApiVersion}"
+    implementation "org.openapitools:jackson-databind-nullable:${jacksonDatabindNullableVersion}"
+    implementation "javax.annotation:javax.annotation-api:${javaxAnnotationApiVersion}"
+    implementation "io.swagger.core.v3:swagger-annotations:${swaggerAnnotationsVersion}"
+    implementation "com.google.code.findbugs:jsr305:${jsr305Version}"
+
+    //google
+
+    implementation 'com.google.apis:google-api-services-sheets:v4-rev20250211-2.0.0'
+    implementation 'com.google.api-client:google-api-client:2.7.2'
+    implementation 'com.google.oauth-client:google-oauth-client-jetty:1.35.0'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.google.http-client:google-http-client-jackson2:1.42.3'
+
+    //Slack dependencies - Bolt for Java
+
+    implementation 'com.slack.api:bolt-jakarta-socket-mode:1.45.3'
+    implementation 'com.slack.api:bolt-socket-mode:1.45.3'
+    implementation 'jakarta.websocket:jakarta.websocket-client-api:2.2.0'
+    implementation 'org.glassfish.tyrus.bundles:tyrus-standalone-client:2.2.0'
+
+
+    implementation 'com.opencsv:opencsv:5.7.1'
+
+    ext {
+        set('testcontainers.version', "1.19.8")
+    }
+
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        runtimeOnly 'org.postgresql:postgresql'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        testImplementation 'org.testcontainers:junit-jupiter'
+        testImplementation 'org.testcontainers:postgresql'
+    }
+
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+compileJava.options.encoding = 'UTF-8'

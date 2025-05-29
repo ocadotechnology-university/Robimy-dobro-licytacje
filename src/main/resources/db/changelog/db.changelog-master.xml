@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <include file="create-tables/01-create-table-moderator.xml" relativeToChangelogFile="true"/>
+    <include file="create-tables/02-create-table-supplier.xml" relativeToChangelogFile="true"/>
+    <include file="create-tables/03-create-table-participant.xml" relativeToChangelogFile="true"/>
+    <include file="create-tables/04-create-table-auction.xml" relativeToChangelogFile="true"/>
+    <include file="create-tables/05-create-table-bid.xml" relativeToChangelogFile="true"/>
+    <include file="create-tables/06-create-table-auction-participant.xml" relativeToChangelogFile="true"/>
+
+</databaseChangeLog>

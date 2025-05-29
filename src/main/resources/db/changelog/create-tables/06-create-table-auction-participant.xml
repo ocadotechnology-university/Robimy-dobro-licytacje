@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+                   logicalFilePath="db/changelog/create-tables/06-create-table-auction-participant.xml">
+
+    <changeSet id="06-create-table-auction-participant" author="michal.bialek">
+        <createTable tableName="auction_participant">
+            <column name="auction_participant_id" type="BIGSERIAL">
+                <constraints nullable="false"/>
+            </column>
+            <column name="participant_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="auction_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bid_date_time" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey tableName="auction_participant"
+                       columnNames="auction_id, participant_id"
+                       constraintName="pk_auction_participant"/>
+
+        <addForeignKeyConstraint baseTableName="auction_participant"
+                                 baseColumnNames="auction_id"
+                                 constraintName="fk_auction_participant_auction"
+                                 referencedTableName="auction"
+                                 referencedColumnNames="auction_id"/>
+
+        <addForeignKeyConstraint baseTableName="auction_participant"
+                                 baseColumnNames="participant_id"
+                                 constraintName="fk_auction_participant_participant"
+                                 referencedTableName="participant"
+                                 referencedColumnNames="participant_id"/>
+    </changeSet>
+</databaseChangeLog>
