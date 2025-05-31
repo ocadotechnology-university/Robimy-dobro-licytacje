@@ -2,6 +2,7 @@ package prw.edu.pl.ocadolicytacje.domain.service;
 
 import com.slack.api.bolt.context.Context;
 import com.slack.api.bolt.context.builtin.SlashCommandContext;
+import com.slack.api.methods.MethodsClient;
 import com.slack.api.methods.SlackApiException;
 import com.slack.api.methods.response.chat.ChatPostMessageResponse;
 import com.slack.api.model.block.ContextBlock;
@@ -34,13 +35,24 @@ import static com.slack.api.model.block.element.BlockElements.button;
 
 
 @Service
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class SlackAuctionThreadServiceImpl implements SlackAuctionThreadService {
 
-    @NonNull
     private final SlackProperties slackProperties;
     private final ParticipantRepository participantRepository;
-    private Clock clock;
+    private final Clock clock;
+    private final MethodsClient slackClient;
+
+    public SlackAuctionThreadServiceImpl(
+            SlackProperties slackProperties,
+            ParticipantRepository participantRepository,
+            Clock clock,
+            MethodsClient slackClient) {
+        this.slackProperties = slackProperties;
+        this.participantRepository = participantRepository;
+        this.clock = clock;
+        this.slackClient = slackClient;
+    }
 
     @Nullable
     private static Bid getHighestBid(List<Bid> bids) {
@@ -142,6 +154,23 @@ public class SlackAuctionThreadServiceImpl implements SlackAuctionThreadService 
         );
 
         ctx.client().chatPostMessage(r -> r
+                .channel(channelId)
+                .threadTs(messageTs)
+                .text("✅ Aukcja została aktywowana. Można licytować!"));
+    }
+
+    public void updateSlackAuctionStatus(@NonNull final Auction auction) throws SlackApiException, IOException {
+        final String channelId = slackProperties.getChannelId();
+        final String messageTs = auction.getSlackMessageTs();
+
+        slackClient.chatUpdate(r -> r
+                .channel(channelId)
+                .ts(messageTs)
+                .blocks(buildAuctionBlocks(auction, channelId, messageTs))
+                .text("📢 Aukcja #" + auction.getAuctionId() + ": " + auction.getTitle())
+        );
+
+        slackClient.chatPostMessage(r -> r
                 .channel(channelId)
                 .threadTs(messageTs)
                 .text("✅ Aukcja została aktywowana. Można licytować!"));

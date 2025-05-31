@@ -27,10 +27,10 @@ public class AuctionActivationServiceImpl implements AuctionActivationService {
 
     private final Clock clock;
 
-
+    @Override
     @Scheduled(cron = "0 0 8 * * *")
     @Transactional
-    public void activateScheduledAuction(SlashCommandContext ctx) throws SlackApiException, IOException {
+    public void activateScheduledAuction() throws SlackApiException, IOException {
         LocalDateTime now = LocalDateTime.now(clock);
         LocalDate today = now.toLocalDate();
         LocalDateTime startOfToday = today.atTime(6, 0);
@@ -39,9 +39,28 @@ public class AuctionActivationServiceImpl implements AuctionActivationService {
 
         for (Auction auction : auctionsToActivate) {
             auction.setStatus(true);
+            auctionRepository.save(auction);
 
-            slackAuctionThreadServiceImpl.updateSlackAuctionStatus(ctx, auction);
-
+            slackAuctionThreadServiceImpl.updateSlackAuctionStatus(auction);
         }
     }
+
+    public void activateAuctionManually(SlashCommandContext ctx) throws SlackApiException, IOException {
+        // logika aktywacji może być taka sama, ale używa metody z ctx, żeby wysłać odpowiedź
+        LocalDateTime now = LocalDateTime.now(clock);
+        LocalDate today = now.toLocalDate();
+        LocalDateTime startOfToday = today.atTime(6, 0);
+
+        List<Auction> auctionsToActivate = auctionRepository.findByStatusFalseAndStartDateTime(startOfToday);
+
+        for (Auction auction : auctionsToActivate) {
+            auction.setStatus(true);
+            auctionRepository.save(auction);
+
+            slackAuctionThreadServiceImpl.updateSlackAuctionStatus(ctx, auction);
+        }
+        ctx.respond("Aukcje zostały aktywowane ręcznie.");
+    }
+
+
 }

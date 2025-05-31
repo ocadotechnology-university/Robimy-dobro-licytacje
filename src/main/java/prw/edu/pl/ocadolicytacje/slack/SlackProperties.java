@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 public class SlackProperties {
-    private String token;
+    private String botToken;
     private String channelId;
     private String signingSecret;
 }

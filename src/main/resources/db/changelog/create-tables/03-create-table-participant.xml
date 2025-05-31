@@ -10,8 +10,8 @@
             <column name="participant_id" type="BIGSERIAL">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="slack_user_id" type="String">
-                <constraints primaryKey="true" nullable="false"/>
+            <column name="slack_user_id" type="TEXT">
+                <constraints unique="true" nullable="false"/>
             </column>
             <column name="first_name" type="VARCHAR(32)">
                 <constraints nullable="false"/>
