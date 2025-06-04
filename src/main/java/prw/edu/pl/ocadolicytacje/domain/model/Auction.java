@@ -9,6 +9,7 @@ import prw.edu.pl.ocadolicytacje.infrastructure.entity.SupplierEntity;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @Builder
@@ -45,4 +46,7 @@ public class Auction {
     Boolean status;
     List<Bid> bids;
 
+    public List<Bid> getBids() {
+        return bids != null ? bids : Collections.emptyList();
+    }
 }

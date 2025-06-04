@@ -5,6 +5,7 @@ import com.slack.api.bolt.context.builtin.SlashCommandContext;
 import com.slack.api.methods.MethodsClient;
 import com.slack.api.methods.SlackApiException;
 import com.slack.api.methods.response.chat.ChatPostMessageResponse;
+import com.slack.api.methods.response.chat.ChatUpdateResponse;
 import com.slack.api.model.block.ContextBlock;
 import com.slack.api.model.block.LayoutBlock;
 import com.slack.api.model.block.composition.MarkdownTextObject;
@@ -23,9 +24,7 @@ import java.io.IOException;
 import java.time.Clock;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 import static com.slack.api.model.block.Blocks.*;
 import static com.slack.api.model.block.composition.BlockCompositions.markdownText;
@@ -33,7 +32,9 @@ import static com.slack.api.model.block.composition.BlockCompositions.plainText;
 import static com.slack.api.model.block.element.BlockElements.asElements;
 import static com.slack.api.model.block.element.BlockElements.button;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 //@RequiredArgsConstructor
 public class SlackAuctionThreadServiceImpl implements SlackAuctionThreadService {
@@ -62,37 +63,89 @@ public class SlackAuctionThreadServiceImpl implements SlackAuctionThreadService 
         return highestBid;
     }
 
-    public String postAuctionToSlack(@NonNull final Auction auction, @NonNull final Context ctx, String channelId) throws IOException, SlackApiException {
+//    public String postAuctionToSlack(@NonNull final Auction auction, @NonNull final Context ctx, String channelId) throws IOException, SlackApiException {
+//
+//
+//        ChatPostMessageResponse mainMessage = ctx.client().chatPostMessage(r -> r
+//                .channel(channelId)
+//                .text("📢 Aukcja #" + auction.getAuctionId() + ": " + auction.getTitle())
+//                .blocks(buildAuctionBlocks(auction, channelId, null))
+//        );
+//
+//        if (!mainMessage.isOk()) {
+//            throw new RuntimeException("Błąd Slack API: " + mainMessage.getError());
+//        }
+//
+//        String threadTs = mainMessage.getTs();
+//
+//        ctx.client().chatPostMessage(r -> r
+//                .channel(channelId)
+//                .threadTs(threadTs)
+//                .text(" Wątek licytacyjny dla aukcji #" + auction.getAuctionId())
+//        );
+//
+//
+//        ctx.client().chatUpdate(r -> r
+//                .channel(channelId)
+//                .ts(threadTs)
+//                .blocks(buildAuctionBlocks(auction, channelId, threadTs))
+//                .text("📢 Aukcja #" + auction.getAuctionId() + ": " + auction.getTitle())
+//        );
+//
+//        return threadTs;
+//    }
 
+    public String postAuctionToSlack(@NonNull final Auction auction, @NonNull final Context ctx, String channelId) throws IOException, SlackApiException {
+        if (channelId == null || channelId.isEmpty()) {
+            throw new IllegalArgumentException("Kanał Slack nie może być pusty!");
+        }
+
+        log.info("Wysyłanie aukcji do Slacka, channelId={}, auctionId={}", channelId, auction.getAuctionId());
+
+        List<LayoutBlock> blocks = buildAuctionBlocks(auction, channelId, null);
+        if (blocks == null || blocks.isEmpty()) {
+            throw new IllegalStateException("Bloki wiadomości są puste – nie można wysłać wiadomości.");
+        }
+
+        log.debug("Bloki wiadomości: {}", blocks);
 
         ChatPostMessageResponse mainMessage = ctx.client().chatPostMessage(r -> r
                 .channel(channelId)
                 .text("📢 Aukcja #" + auction.getAuctionId() + ": " + auction.getTitle())
-                .blocks(buildAuctionBlocks(auction, channelId, null))
+                .blocks(blocks)
         );
 
         if (!mainMessage.isOk()) {
+            log.error("Błąd Slack API podczas chatPostMessage: {}", mainMessage.getError());
             throw new RuntimeException("Błąd Slack API: " + mainMessage.getError());
         }
 
         String threadTs = mainMessage.getTs();
 
-        ctx.client().chatPostMessage(r -> r
+        ChatPostMessageResponse threadMessage = ctx.client().chatPostMessage(r -> r
                 .channel(channelId)
                 .threadTs(threadTs)
-                .text(" Wątek licytacyjny dla aukcji #" + auction.getAuctionId())
+                .text("Wątek licytacyjny dla aukcji #" + auction.getAuctionId())
         );
 
+        if (!threadMessage.isOk()) {
+            log.warn("Błąd przy wysyłaniu wiadomości do wątku: {}", threadMessage.getError());
+        }
 
-        ctx.client().chatUpdate(r -> r
+        ChatUpdateResponse updateResponse = ctx.client().chatUpdate(r -> r
                 .channel(channelId)
                 .ts(threadTs)
                 .blocks(buildAuctionBlocks(auction, channelId, threadTs))
                 .text("📢 Aukcja #" + auction.getAuctionId() + ": " + auction.getTitle())
         );
 
+        if (!updateResponse.isOk()) {
+            log.warn("Błąd przy aktualizacji wiadomości: {}", updateResponse.getError());
+        }
+
         return threadTs;
     }
+
 
     private List<LayoutBlock> buildAuctionBlocks(@NonNull final Auction auction, String channelId, Object threadTs) {
         List<LayoutBlock> blocks = new ArrayList<>();
@@ -107,11 +160,16 @@ public class SlackAuctionThreadServiceImpl implements SlackAuctionThreadService 
                         ":page_facing_up: *Opis:* " + auction.getDescription() + "\n" +
                         ":hourglass_flowing_sand: *Start:* " + auction.getStartDateTime() + "\n" +
                         ":stopwatch: *Koniec:* " + auction.getEndDateTime() + "\n" +
-                        ":bust_in_silhouette: *Wystawiający:* " + auction.getSupplierEntity().getFirstName() + " " + auction.getSupplierEntity().getLastName() + "\n" +
+//                        ":bust_in_silhouette: *Wystawiający:* " + auction.getSupplierEntity().getFirstName() + " " + auction.getSupplierEntity().getLastName() + "\n" +
+                        ":bust_in_silhouette: *Wystawiający:* " +
+                        (auction.getSupplierEntity() != null
+                                ? auction.getSupplierEntity().getFirstName() + " " + auction.getSupplierEntity().getLastName()
+                                : "_brak danych_") + "\n" +
+
                         ":moneybag: *Cena wywoławcza:* " + auction.getBasePrice() + " zł"
         ))));
 
-        blocks.add(image(i -> i.imageUrl(auction.getPhotoUrl()).altText("Zdjęcie aukcji")));
+//        blocks.add(image(i -> i.imageUrl(auction.getPhotoUrl()).altText("Zdjęcie aukcji")));
 
         blocks.add(buildContextBlock(channelId, threadTs));
 
@@ -192,21 +250,25 @@ public class SlackAuctionThreadServiceImpl implements SlackAuctionThreadService 
         final String endDate = LocalDate.now(clock).format(formatter);
 
         for (Auction auction : auctions) {
-            List<Bid> bids = auction.getBids();
+            List<Bid> bids = Optional.ofNullable(auction.getBids()).orElse(Collections.emptyList());
 
-            if (bids != null && !bids.isEmpty()) {
+            if (!bids.isEmpty()) {
                 final Bid highestBid = bids.stream()
                         .max(Comparator.comparing(Bid::getBidValue))
                         .orElse(null);
 
                 if (highestBid != null) {
+                    Participant participant = participantRepository.findBySlackUserId(highestBid.getParticipantSlackId());
 
-                    final Participant participant = participantRepository.findBySlackUserId(highestBid.getParticipantSlackId());
-
-                    sb.append("AUKCJA *").append(auction.getAuctionId())
-                            .append("* - zwycięzca: *")
-                            .append(participant.getFirstName()).append(" ").append(participant.getLastName())
-                            .append("* - *").append(highestBid.getBidValue()).append("* zł\n\n");
+                    if (participant != null) {
+                        sb.append("AUKCJA *").append(auction.getAuctionId())
+                                .append("* - zwycięzca: *")
+                                .append(participant.getFirstName()).append(" ").append(participant.getLastName())
+                                .append("* - *").append(highestBid.getBidValue()).append("* zł\n\n");
+                    } else {
+                        sb.append("AUKCJA *").append(auction.getAuctionId())
+                                .append("* - zwycięzca: *nieznany uczestnik* - *").append(highestBid.getBidValue()).append("* zł\n\n");
+                    }
                 } else {
                     sb.append("AUKCJA *").append(auction.getAuctionId())
                             .append("* - brak propozycji\n\n");
@@ -215,20 +277,19 @@ public class SlackAuctionThreadServiceImpl implements SlackAuctionThreadService 
                 sb.append("AUKCJA *").append(auction.getAuctionId())
                         .append("* - brak propozycji\n\n");
             }
+            sb.append("Wszystkim zwycięzcom gratulujemy 👏 🎉\n\n")
+                    .append("Kwotę należy wpłacić na konto:\n\n")
+                    .append("*PKO BP SA 12 3456 7890 1234 5678 9012 3456*\n\n")
+                    .append("tytuł: Ocado RobimyDobro ").append(LocalDate.now(clock).getYear())
+                    .append(" - [data wystawienia aukcji] / [numer aukcji]\n\n")
+                    .append("Ostateczny termin wpłaty to *").append(endDate).append("* - dzień zakończenia zbiórki.\n\n")
+                    .append("W celu odebrania wygranej proszę o bezpośredni kontakt z wystawiającym aukcję.\n\n")
+                    .append("Dziękujemy bardzo za moderację wystawionych aukcji.");
         }
-
-        sb.append("Wszystkim zwycięzcom gratulujemy 👏 🎉\n\n")
-                .append("Kwotę należy wpłacić na konto:\n\n")
-                .append("*PKO BP SA 12 3456 7890 1234 5678 9012 3456*\n\n")
-                .append("tytuł: Ocado RobimyDobro ").append(LocalDate.now(clock).getYear())
-                .append(" - [data wystawienia aukcji] / [numer aukcji]\n\n")
-                .append("Ostateczny termin wpłaty to *").append(endDate).append("* - dzień zakończenia zbiórki.\n\n")
-                .append("W celu odebrania wygranej proszę o bezpośredni kontakt z wystawiającym aukcję.\n\n")
-                .append("Dziękujemy bardzo za moderację wystawionych aukcji.");
-
         ctx.client().chatPostMessage(r -> r
                 .channel(slackProperties.getChannelId())
                 .text(sb.toString()));
     }
+
 
 }
