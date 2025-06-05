@@ -7,12 +7,15 @@ import com.slack.api.bolt.context.builtin.ViewSubmissionContext;
 import com.slack.api.bolt.handler.builtin.ViewSubmissionHandler;
 import com.slack.api.bolt.request.builtin.ViewSubmissionRequest;
 import com.slack.api.bolt.response.Response;
+import com.slack.api.model.block.LayoutBlock;
 import com.slack.api.model.view.ViewState;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import prw.edu.pl.ocadolicytacje.domain.model.Auction;
 import prw.edu.pl.ocadolicytacje.domain.model.Bid;
+import prw.edu.pl.ocadolicytacje.domain.service.SlackAuctionThreadServiceImpl;
+import prw.edu.pl.ocadolicytacje.domain.service.port.SlackAuctionThreadService;
 import prw.edu.pl.ocadolicytacje.infrastructure.entity.AuctionEntity;
 import prw.edu.pl.ocadolicytacje.infrastructure.entity.BidEntity;
 import prw.edu.pl.ocadolicytacje.infrastructure.entity.ParticipantEntity;
@@ -32,6 +35,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BidModalHandler implements ViewSubmissionHandler {
 
+    private final SlackAuctionThreadServiceImpl slackAuctionThreadService;
     private final BidEntityRepository bidEntityRepository;
     private final ParticipantEntityRepository participantEntityRepository;
     private final AuctionEntityRepository auctionEntityRepository;
@@ -39,6 +43,7 @@ public class BidModalHandler implements ViewSubmissionHandler {
 
     @Override
     public Response apply(ViewSubmissionRequest req, ViewSubmissionContext ctx) {
+        log.info("BidModalHandler.apply() wywołane");
         try {
             ViewState inputViewState = req.getPayload().getView().getState();
             JsonNode metaData = getRequestMetaData(req);
@@ -48,22 +53,39 @@ public class BidModalHandler implements ViewSubmissionHandler {
             String userId = req.getPayload().getUser().getId();
 
             Auction auction = auctionRepository.findById(auctionId);
+            if (auction == null) {
+                throw new IllegalStateException("Auction not found with id: " + auctionId);
+            }
 
             if (!auction.getStatus()) {
                 return ctx.ackWithErrors(Collections.singletonMap("bid_value", "Aukcja jest nieaktywna."));
             }
 
-            final List<Bid> bids = auction.getBids();
+            List<BidEntity> bidEntities = bidEntityRepository.findByAuctionEntity_AuctionId(auctionId);
 
-            BigDecimal highestBid = bids.stream()
-                    .max(Comparator.comparing(Bid::getBidValue))
-                    .map(Bid::getBidValue)
+            BigDecimal highestBid = bidEntities.stream()
+                    .map(BidEntity::getBidValue)
+                    .max(Comparator.naturalOrder())
                     .orElse(auction.getBasePrice());
 
             if (inputValueIsLowerThanActual(inputBidValue, highestBid)) {
                 log.info("Provided price: {} is lower than actual highest price: {}", inputBidValue, highestBid);
-                String errorMessage = "Provided price: %s is lower than actual highest price: %s".formatted(inputBidValue, highestBid);
-                return ctx.ackWithErrors(Collections.singletonMap("bid", errorMessage));
+                String errorMessage = "Provided price: %s is equal or lower than actual highest price: %s".formatted(inputBidValue, highestBid);
+
+                // Wysyłamy wiadomość do kanału z informacją
+                try {
+                    ctx.client().chatPostEphemeral(r -> r
+                            .channel(metaData.get("channelId").asText())
+                            .user(req.getPayload().getUser().getId())  // wskazujemy użytkownika, który ma widzieć wiadomość
+                            .text(String.format(
+                                    "Podaj kwotę wyższą niż %s",
+                                    highestBid
+                            )));
+                } catch (Exception slackEx) {
+                    log.warn("Nie udało się wysłać powiadomienia o zbyt niskiej ofercie: {}", slackEx.getMessage());
+                }
+
+                return ctx.ackWithErrors(Collections.singletonMap("bid_value", errorMessage));
             }
 
             AuctionEntity auctionEntity = auctionEntityRepository.findById(auctionId)
@@ -113,17 +135,39 @@ public class BidModalHandler implements ViewSubmissionHandler {
 
             bidEntityRepository.save(bidEntity); // użyj JpaRepository<BidEntity, Long>
 
-            Bid previousHighestBid = bids.stream()
-                    .max(Comparator.comparing(Bid::getBidValue))
+            // Pobierz aktualizowaną aukcję (z nową listą bidów, włącznie z nowym bidem)
+//            Auction updatedAuction = auctionRepository.findById(auctionId);
+            Auction updatedAuction = auctionRepository.findByIdWithBids(auctionId);
+            if (updatedAuction == null) {
+                throw new IllegalStateException("Auction not found with id: " + auctionId);
+            }
+
+            // Aktualizacja wiadomości Slack
+            String channelId = metaData.get("channelId").asText();
+            String messageTs = updatedAuction.getSlackMessageTs();
+
+            log.info("Znaleziono {} bidów dla aukcji {}",
+                    updatedAuction.getBids().size(), updatedAuction.getAuctionId());
+
+            ctx.client().chatUpdate(r -> r
+                    .channel(channelId)
+                    .ts(messageTs)
+                    .blocks(slackAuctionThreadService.buildAuctionBlocks(updatedAuction, channelId, messageTs))
+                    .text("📢 Aukcja #" + updatedAuction.getAuctionId() + ": " + updatedAuction.getTitle())
+            );
+
+
+            BidEntity previousHighestBid = bidEntities.stream()
+                    .max(Comparator.comparing(BidEntity::getBidValue))
                     .orElse(null);
 
+            if (previousHighestBid != null &&
+                    !previousHighestBid.getParticipantEntity().getSlackUserId().equals(userId)) {
 
-            if (previousHighestBid != null && !previousHighestBid.getParticipantSlackId().equals(req.getPayload().getUser().getId())) {
-                // osoba została przebita
                 String outbidMessage = String.format(
                         "<@%s> Twoja oferta została przebita przez <@%s>. Nowa cena: %s zł",
-                        previousHighestBid.getParticipantSlackId(),
-                        req.getPayload().getUser().getId(),
+                        previousHighestBid.getParticipantEntity().getSlackUserId(),
+                        userId,
                         inputBidValue
                 );
 

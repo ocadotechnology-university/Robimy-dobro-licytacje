@@ -21,6 +21,7 @@ import prw.edu.pl.ocadolicytacje.infrastructure.repository.ParticipantRepository
 import prw.edu.pl.ocadolicytacje.slack.SlackProperties;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.Clock;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -62,38 +63,6 @@ public class SlackAuctionThreadServiceImpl implements SlackAuctionThreadService 
                 .orElse(null);
         return highestBid;
     }
-
-//    public String postAuctionToSlack(@NonNull final Auction auction, @NonNull final Context ctx, String channelId) throws IOException, SlackApiException {
-//
-//
-//        ChatPostMessageResponse mainMessage = ctx.client().chatPostMessage(r -> r
-//                .channel(channelId)
-//                .text("📢 Aukcja #" + auction.getAuctionId() + ": " + auction.getTitle())
-//                .blocks(buildAuctionBlocks(auction, channelId, null))
-//        );
-//
-//        if (!mainMessage.isOk()) {
-//            throw new RuntimeException("Błąd Slack API: " + mainMessage.getError());
-//        }
-//
-//        String threadTs = mainMessage.getTs();
-//
-//        ctx.client().chatPostMessage(r -> r
-//                .channel(channelId)
-//                .threadTs(threadTs)
-//                .text(" Wątek licytacyjny dla aukcji #" + auction.getAuctionId())
-//        );
-//
-//
-//        ctx.client().chatUpdate(r -> r
-//                .channel(channelId)
-//                .ts(threadTs)
-//                .blocks(buildAuctionBlocks(auction, channelId, threadTs))
-//                .text("📢 Aukcja #" + auction.getAuctionId() + ": " + auction.getTitle())
-//        );
-//
-//        return threadTs;
-//    }
 
     public String postAuctionToSlack(@NonNull final Auction auction, @NonNull final Context ctx, String channelId) throws IOException, SlackApiException {
         if (channelId == null || channelId.isEmpty()) {
@@ -147,7 +116,7 @@ public class SlackAuctionThreadServiceImpl implements SlackAuctionThreadService 
     }
 
 
-    private List<LayoutBlock> buildAuctionBlocks(@NonNull final Auction auction, String channelId, Object threadTs) {
+    public List<LayoutBlock> buildAuctionBlocks(@NonNull final Auction auction, String channelId, Object threadTs) {
         List<LayoutBlock> blocks = new ArrayList<>();
 
         blocks.add(section(s -> s.text(markdownText(
@@ -167,6 +136,17 @@ public class SlackAuctionThreadServiceImpl implements SlackAuctionThreadService 
                                 : "_brak danych_") + "\n" +
 
                         ":moneybag: *Cena wywoławcza:* " + auction.getBasePrice() + " zł"
+        ))));
+
+        BigDecimal highestBidValue = Optional.ofNullable(auction.getBids())
+                .orElse(Collections.emptyList())
+                .stream()
+                .max(Comparator.comparing(Bid::getBidValue))
+                .map(Bid::getBidValue)
+                .orElse(auction.getBasePrice());
+
+        blocks.add(section(s -> s.text(markdownText(
+                ":arrow_up: *Aktualna najwyższa oferta:* " + highestBidValue + " zł"
         ))));
 
 //        blocks.add(image(i -> i.imageUrl(auction.getPhotoUrl()).altText("Zdjęcie aukcji")));

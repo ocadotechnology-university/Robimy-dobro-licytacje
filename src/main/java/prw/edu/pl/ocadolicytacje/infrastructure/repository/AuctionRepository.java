@@ -2,6 +2,8 @@ package prw.edu.pl.ocadolicytacje.infrastructure.repository;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import prw.edu.pl.ocadolicytacje.domain.model.Auction;
 import prw.edu.pl.ocadolicytacje.infrastructure.entity.AuctionEntity;
@@ -61,4 +63,21 @@ public class AuctionRepository {
         List<AuctionEntity> byEndDateTimeBetween = auctionRepositoryDao.findByEndDateTimeBetween(startOfDay, endOfDay);
         return auctionInfrastructureToDomainMapper.map(byEndDateTimeBetween);
     }
+
+//    public Auction findByIdWithBids(Long auctionId) {
+//        AuctionEntity auctionEntity = auctionRepositoryDao.findByIdWithBids(auctionId);
+//        if (auctionEntity == null) {
+//            return null; // albo rzuć wyjątek, jeśli nie ma aukcji
+//        }
+//        return auctionInfrastructureToDomainMapper.map(auctionEntity);
+//    }
+
+    public Auction findByIdWithBids(Long auctionId) {
+        AuctionEntity auctionEntity = auctionRepositoryDao.findByIdWithBids(auctionId);
+        if (auctionEntity == null) {
+            return null; // lub rzuc wyjątek, jeśli wolisz
+        }
+        return auctionInfrastructureToDomainMapper.map(auctionEntity);
+    }
+
 }

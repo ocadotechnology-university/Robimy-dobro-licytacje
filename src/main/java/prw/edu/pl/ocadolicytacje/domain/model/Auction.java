@@ -1,5 +1,8 @@
 package prw.edu.pl.ocadolicytacje.domain.model;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -44,6 +47,7 @@ public class Auction {
 
     String slackMessageTs;
     Boolean status;
+    @OneToMany(mappedBy = "auctionEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<Bid> bids;
 
     public List<Bid> getBids() {
