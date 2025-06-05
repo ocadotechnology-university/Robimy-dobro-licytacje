@@ -28,7 +28,7 @@ import java.util.Collections;
 @Configuration
 @Slf4j
 public class SlackSocketModeConfig {
-    public static final String START_AUKJE_COMMAND = "/start_aukcje";
+    public static final String START_AUKCJE_COMMAND = "/start_aukcje";
 
     private final String botToken;
     private final String appToken;
@@ -83,8 +83,9 @@ public class SlackSocketModeConfig {
         app.viewSubmission("bid_modal", bidModalHandler);
 
 
-        app.command(START_AUKJE_COMMAND, (req, ctx) -> {
+        app.command(START_AUKCJE_COMMAND, (req, ctx) -> {
             String text = req.getPayload().getText();
+            log.info("Odebrany tekst z komendy: '{}'", text);
             try {
                 final LocalDate date = LocalDate.parse(text.trim());
                 generalSlackAuctionServiceImpl.createAuctionThreadAndPostOnChannel(date, ctx);
@@ -92,9 +93,13 @@ public class SlackSocketModeConfig {
                 auctionEndServiceImpl.endAuctionsManual(ctx);
 
                 return ctx.ack("Aukcje dla " + date + " zostały przygotowane");
-            } catch (Exception e) {
+            } catch (DateTimeParseException e) {
                 log.info("Podano datę rozpoczęcia w błędnym formacie. Prawidłowy format to: YYYY-MM-DD", e);
                 return ctx.ack("Podano datę rozpoczęcia w błędnym formacie. Prawidłowy format to: YYYY-MM-DD");
+            }
+            catch (Exception e) {
+                log.error("Błąd podczas tworzenia aukcji", e);
+                return ctx.ack("❌ Wystąpił błąd podczas tworzenia aukcji: " + e.getMessage());
             }
         });
 
