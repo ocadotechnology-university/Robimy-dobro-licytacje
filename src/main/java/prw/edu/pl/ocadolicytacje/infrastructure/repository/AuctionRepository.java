@@ -64,20 +64,17 @@ public class AuctionRepository {
         return auctionInfrastructureToDomainMapper.map(byEndDateTimeBetween);
     }
 
-//    public Auction findByIdWithBids(Long auctionId) {
-//        AuctionEntity auctionEntity = auctionRepositoryDao.findByIdWithBids(auctionId);
-//        if (auctionEntity == null) {
-//            return null; // albo rzuć wyjątek, jeśli nie ma aukcji
-//        }
-//        return auctionInfrastructureToDomainMapper.map(auctionEntity);
-//    }
-
     public Auction findByIdWithBids(Long auctionId) {
         AuctionEntity auctionEntity = auctionRepositoryDao.findByIdWithBids(auctionId);
         if (auctionEntity == null) {
             return null; // lub rzuc wyjątek, jeśli wolisz
         }
         return auctionInfrastructureToDomainMapper.map(auctionEntity);
+    }
+
+    public List<Auction> findWithBidsAndParticipantsBetween(LocalDateTime start, LocalDateTime end) {
+        List<AuctionEntity> auctions = auctionRepositoryDao.findWithBidsAndParticipantsBetween(start, end);
+        return auctionInfrastructureToDomainMapper.map(auctions);
     }
 
 }

@@ -161,21 +161,53 @@ public class BidModalHandler implements ViewSubmissionHandler {
                     .max(Comparator.comparing(BidEntity::getBidValue))
                     .orElse(null);
 
+//            if (previousHighestBid != null &&
+//                    !previousHighestBid.getParticipantEntity().getSlackUserId().equals(userId)) {
+//
+//                String outbidMessage = String.format(
+//                        "<@%s> Twoja oferta została przebita przez <@%s>. Nowa cena: %s zł",
+//                        previousHighestBid.getParticipantEntity().getSlackUserId(),
+//                        userId,
+//                        inputBidValue
+//                );
+//
+//                ctx.client().chatPostMessage(r -> r
+//                        .channel(metaData.get("channelId").asText())
+//                        .threadTs(metaData.get("messageTs").asText())
+//                        .text(outbidMessage));
+//            }
+
+//            if (previousHighestBid != null &&
+//                    !previousHighestBid.getParticipantEntity().getSlackUserId().equals(userId)) {
+//
+//                try {
+//                    ctx.client().chatPostEphemeral(r -> r
+//                            .channel(metaData.get("channelId").asText())
+//                            .user(previousHighestBid.getParticipantEntity().getSlackUserId())
+//                            .text("❗️ Twoja oferta w aukcji *%s* została przebita przez <@%s>. Nowa kwota: *%s zł*"
+//                                    .formatted(updatedAuction.getTitle(), userId, inputBidValue))
+//                    );
+//                } catch (Exception ex) {
+//                    log.warn("Nie udało się wysłać efemerycznej wiadomości o przebiciu: {}", ex.getMessage());
+//                }
+//            }
+
             if (previousHighestBid != null &&
                     !previousHighestBid.getParticipantEntity().getSlackUserId().equals(userId)) {
 
-                String outbidMessage = String.format(
-                        "<@%s> Twoja oferta została przebita przez <@%s>. Nowa cena: %s zł",
-                        previousHighestBid.getParticipantEntity().getSlackUserId(),
-                        userId,
-                        inputBidValue
-                );
-
-                ctx.client().chatPostMessage(r -> r
-                        .channel(metaData.get("channelId").asText())
-                        .threadTs(metaData.get("messageTs").asText())
-                        .text(outbidMessage));
+                try {
+                    ctx.client().chatPostEphemeral(r -> r
+                            .channel(metaData.get("channelId").asText())
+                            .user(previousHighestBid.getParticipantEntity().getSlackUserId())
+                            .threadTs(metaData.get("messageTs").asText())  // <-- to dodajesz
+                            .text("❗️ Twoja oferta w aukcji *%s* została przebita przez <@%s>. Nowa kwota: *%s zł*"
+                                    .formatted(updatedAuction.getTitle(), userId, inputBidValue))
+                    );
+                } catch (Exception ex) {
+                    log.warn("Nie udało się wysłać efemerycznej wiadomości o przebiciu: {}", ex.getMessage());
+                }
             }
+
 
             return ctx.ack();
         } catch (Exception e) {

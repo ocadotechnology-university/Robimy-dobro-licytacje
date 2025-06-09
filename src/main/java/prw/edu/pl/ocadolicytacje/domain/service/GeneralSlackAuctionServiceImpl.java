@@ -36,6 +36,11 @@ public class GeneralSlackAuctionServiceImpl implements GeneralSlackAuctionServic
         final LocalDateTime endOfDay = date.atTime(LocalTime.MAX);
         final List<Auction> allByStartDateTimeBetween = auctionRepository.findAllByStartDateTimeBetween(startOfDay, endOfDay);
         for (Auction auction : allByStartDateTimeBetween) {
+            if (auction.getSlackMessageTs() != null && !auction.getSlackMessageTs().isEmpty()) {
+                // Aukcja już została opublikowana, pomiń
+                System.out.println("Aukcja już została opublikowana, pomiń: Message: " + auction.getSlackMessageTs());
+                continue;
+            }
             final String channelId = slackProperties.getChannelId();
             final String threadTs = slackAuctionThreadServiceImpl.postAuctionToSlack(auction, context, channelId);
             final String threadLink = "https://slack.com/app_redirect?channel=" + channelId + "&thread_ts=" + threadTs;

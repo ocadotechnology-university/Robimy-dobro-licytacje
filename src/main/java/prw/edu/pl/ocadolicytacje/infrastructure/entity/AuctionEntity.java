@@ -68,6 +68,6 @@ public class AuctionEntity {
     @Column(name = "slack_message_ts")
     private String slackMessageTs;
 
-    @OneToMany(mappedBy = "auctionEntity", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "auctionEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<BidEntity> bidEntityList;
 }

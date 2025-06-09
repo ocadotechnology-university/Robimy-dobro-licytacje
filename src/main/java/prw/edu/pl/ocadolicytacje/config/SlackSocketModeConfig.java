@@ -6,6 +6,7 @@ import com.slack.api.bolt.jakarta_socket_mode.SocketModeApp;
 import com.slack.api.methods.SlackApiException;
 import com.slack.api.methods.request.files.FilesUploadRequest;
 import com.slack.api.methods.response.files.FilesUploadResponse;
+import com.slack.api.methods.response.files.FilesUploadV2Response;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,6 +24,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Collections;
+import java.util.List;
 
 
 @Configuration
@@ -105,33 +107,33 @@ public class SlackSocketModeConfig {
 
         app.command("/generuj_raport", (req, ctx) -> {
             String text = req.getPayload().getText().trim();
+            if (text.isEmpty()) {
+                return ctx.ack("❌ Musisz podać datę w formacie YYYY-MM-DD, np. /generuj_raport 2025-06-08");
+            }
             try {
                 LocalDate date = LocalDate.parse(text);
-                ctx.ack("📄 Generowanie raportu CSV dla daty: " + date);
+                ctx.ack("📢 Generowanie raportu aukcji zakończonych w dniu: " + date);
 
-                File csvFile = csvReportService.generateCsvReportForDate(date);
+                List<String> messages = csvReportService.generateAuctionSummaryMessagesForDate(date);
+                String channelId = req.getPayload().getChannelId();
 
-                FilesUploadRequest request = FilesUploadRequest.builder()
-                        .channels(Collections.singletonList(req.getPayload().getChannelId()))
-                        .file(csvFile)
-                        .filename(csvFile.getName())
-                        .title("Raport z dnia " + date)
-                        .build();
-
-                FilesUploadResponse response = ctx.client().filesUpload(request);
-                if (!response.isOk()) {
-                    return ctx.ack(" Błąd podczas przesyłania pliku: " + response.getError());
+                for (String message : messages) {
+                    ctx.client().chatPostMessage(r -> r
+                            .channel(channelId)
+                            .text(message));
                 }
 
-                return ctx.ack("✅ Raport CSV został wygenerowany i przesłany.");
+                return ctx.ack("✅ Raport został wygenerowany i opublikowany w postaci wiadomości.");
             } catch (DateTimeParseException e) {
                 log.info("Podano datę w błędnym formacie: {}", text, e);
                 return ctx.ack("❌ Nieprawidłowy format daty. Użyj formatu YYYY-MM-DD.");
-            } catch (IOException | SlackApiException e) {
-                log.error("Błąd podczas generowania lub przesyłania raportu", e);
-                return ctx.ack("❌ Wystąpił błąd podczas generowania lub przesyłania raportu.");
+            } catch (Exception e) {
+                log.error("Błąd podczas generowania wiadomości", e);
+                return ctx.ack("❌ Wystąpił błąd: " + e.getMessage());
             }
         });
+
+
 
 
         return app;

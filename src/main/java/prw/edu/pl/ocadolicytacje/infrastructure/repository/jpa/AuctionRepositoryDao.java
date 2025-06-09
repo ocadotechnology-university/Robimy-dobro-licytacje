@@ -24,4 +24,7 @@ public interface AuctionRepositoryDao extends JpaRepository<AuctionEntity, Long>
     @Query("SELECT a FROM AuctionEntity a LEFT JOIN FETCH a.bidEntityList WHERE a.auctionId = :auctionId")
     AuctionEntity findByIdWithBids(@Param("auctionId") Long auctionId);
 
+    @Query("SELECT DISTINCT a FROM AuctionEntity a LEFT JOIN FETCH a.bidEntityList b LEFT JOIN FETCH b.participantEntity WHERE a.endDateTime BETWEEN :start AND :end")
+    List<AuctionEntity> findWithBidsAndParticipantsBetween(LocalDateTime start, LocalDateTime end);
+
 }
