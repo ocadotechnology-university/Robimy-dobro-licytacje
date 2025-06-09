@@ -5,7 +5,6 @@
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
     <include file="create-tables/01-create-table-moderator.xml" relativeToChangelogFile="true"/>
-    <include file="create-tables/02-create-table-supplier.xml" relativeToChangelogFile="true"/>
     <include file="create-tables/03-create-table-participant.xml" relativeToChangelogFile="true"/>
     <include file="create-tables/04-create-table-auction.xml" relativeToChangelogFile="true"/>
     <include file="create-tables/05-create-table-bid.xml" relativeToChangelogFile="true"/>

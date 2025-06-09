@@ -51,9 +51,7 @@ public class AuctionSheetMapper {
                     .city(rowMap.get(MIASTO))
                     .basePrice(parsePrice(rowMap.get(CENA_WYWOŁAWCZA)))
                     .build();
-            System.out.println(
 
-            );
             result.add(dto);
         }
         return result;

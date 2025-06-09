@@ -37,12 +37,18 @@ public class GeneralSlackAuctionServiceImpl implements GeneralSlackAuctionServic
         final List<Auction> allByStartDateTimeBetween = auctionRepository.findAllByStartDateTimeBetween(startOfDay, endOfDay);
         for (Auction auction : allByStartDateTimeBetween) {
             final String channelId = slackProperties.getChannelId();
+
             final String threadTs = slackAuctionThreadServiceImpl.postAuctionToSlack(auction, context, channelId);
             final String threadLink = "https://slack.com/app_redirect?channel=" + channelId + "&thread_ts=" + threadTs;
             auction.setLinkToThread(threadLink);
             auction.setSlackMessageTs(threadTs);
+
+            try {
+                Thread.sleep(1100); // zapobiega przekroczeniu limitów Slacka (~1 msg/s)
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
         }
-        auctionRepository.saveAll(allByStartDateTimeBetween);
 
     }
 

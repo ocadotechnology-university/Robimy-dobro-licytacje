@@ -11,10 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import prw.edu.pl.ocadolicytacje.domain.service.AuctionActivationServiceImpl;
-import prw.edu.pl.ocadolicytacje.domain.service.AuctionEndServiceImpl;
-import prw.edu.pl.ocadolicytacje.domain.service.CsvReportServiceImpl;
-import prw.edu.pl.ocadolicytacje.domain.service.GeneralSlackAuctionServiceImpl;
+import prw.edu.pl.ocadolicytacje.domain.service.*;
 import prw.edu.pl.ocadolicytacje.domain.service.handler.BidButtonHandler;
 import prw.edu.pl.ocadolicytacje.domain.service.handler.BidModalHandler;
 
@@ -23,6 +20,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Collections;
+import java.util.concurrent.CompletableFuture;
 
 
 @Configuration
@@ -32,13 +30,13 @@ public class SlackSocketModeConfig {
 
     private final String botToken;
     private final String appToken;
-
     private final GeneralSlackAuctionServiceImpl generalSlackAuctionServiceImpl;
     private final AuctionActivationServiceImpl auctionActivationServiceImpl;
     private final AuctionEndServiceImpl auctionEndServiceImpl;
     private final BidButtonHandler bidButtonHandler;
     private final BidModalHandler bidModalHandler;
     private final CsvReportServiceImpl csvReportService;
+
 
     public SlackSocketModeConfig(
             @Value("${slack.bot-token}") String botToken,
@@ -84,23 +82,38 @@ public class SlackSocketModeConfig {
 
 
         app.command(START_AUKCJE_COMMAND, (req, ctx) -> {
-            String text = req.getPayload().getText();
-            log.info("Odebrany tekst z komendy: '{}'", text);
-            try {
-                final LocalDate date = LocalDate.parse(text.trim());
-                generalSlackAuctionServiceImpl.createAuctionThreadAndPostOnChannel(date, ctx);
-                auctionActivationServiceImpl.activateScheduledAuction();
-                auctionEndServiceImpl.endAuctionsManual(ctx);
+            final String text = req.getPayload().getText().trim();
 
-                return ctx.ack("Aukcje dla " + date + " zostały przygotowane");
+            // 1️⃣ Walidacja daty (szybko)
+            final LocalDate date;
+            try {
+                date = LocalDate.parse(text);
             } catch (DateTimeParseException e) {
-                log.info("Podano datę rozpoczęcia w błędnym formacie. Prawidłowy format to: YYYY-MM-DD", e);
-                return ctx.ack("Podano datę rozpoczęcia w błędnym formacie. Prawidłowy format to: YYYY-MM-DD");
+                return ctx.ack("❌ Nieprawidłowy format daty. Użyj YYYY-MM-DD.");
             }
-            catch (Exception e) {
-                log.error("Błąd podczas tworzenia aukcji", e);
-                return ctx.ack("❌ Wystąpił błąd podczas tworzenia aukcji: " + e.getMessage());
-            }
+
+            // 2️⃣ Natychmiastowe potwierdzenie (≤ 3 s)
+            var ack = ctx.ack(":hourglass_flowing_sand: Przygotowuję aukcje dla");
+
+            // 3️⃣ Dalsza praca w tle
+            CompletableFuture.runAsync(() -> {
+                try {
+                    generalSlackAuctionServiceImpl.createAuctionThreadAndPostOnChannel(date, ctx);
+                    auctionActivationServiceImpl.activateScheduledAuction();
+                    auctionEndServiceImpl.endAuctionsManual(ctx);
+                    ctx.respond("✅ Aukcje dla "+date+" zostały przygotowane");
+                } catch (Exception ex) {
+                    log.error("Błąd podczas przygotowania aukcji", ex);
+                    try {
+                        ctx.respond("❌ Wystąpił błąd: "+ex.getMessage());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+
+            // zwracamy to, co zwróciło ack()
+            return ack;
         });
 
         app.command("/generuj_raport", (req, ctx) -> {
@@ -136,9 +149,6 @@ public class SlackSocketModeConfig {
 
         return app;
     }
-
-
-    //TODO - DODANIE KOMENDY, do generowania raportu
 
 
 }

@@ -10,29 +10,32 @@ import com.slack.api.model.block.ContextBlock;
 import com.slack.api.model.block.LayoutBlock;
 import com.slack.api.model.block.composition.MarkdownTextObject;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import prw.edu.pl.ocadolicytacje.domain.model.Auction;
 import prw.edu.pl.ocadolicytacje.domain.model.Bid;
 import prw.edu.pl.ocadolicytacje.domain.model.Participant;
+import prw.edu.pl.ocadolicytacje.domain.service.port.GoogleDriveService;
 import prw.edu.pl.ocadolicytacje.domain.service.port.SlackAuctionThreadService;
 import prw.edu.pl.ocadolicytacje.infrastructure.repository.ParticipantRepository;
 import prw.edu.pl.ocadolicytacje.slack.SlackProperties;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.Clock;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.slack.api.model.block.Blocks.*;
 import static com.slack.api.model.block.composition.BlockCompositions.markdownText;
 import static com.slack.api.model.block.composition.BlockCompositions.plainText;
 import static com.slack.api.model.block.element.BlockElements.asElements;
 import static com.slack.api.model.block.element.BlockElements.button;
-
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
@@ -43,6 +46,9 @@ public class SlackAuctionThreadServiceImpl implements SlackAuctionThreadService 
     private final ParticipantRepository participantRepository;
     private final Clock clock;
     private final MethodsClient slackClient;
+
+    @Autowired
+    private GoogleDriveService driveService;
 
     public SlackAuctionThreadServiceImpl(
             SlackProperties slackProperties,
@@ -62,38 +68,6 @@ public class SlackAuctionThreadServiceImpl implements SlackAuctionThreadService 
                 .orElse(null);
         return highestBid;
     }
-
-//    public String postAuctionToSlack(@NonNull final Auction auction, @NonNull final Context ctx, String channelId) throws IOException, SlackApiException {
-//
-//
-//        ChatPostMessageResponse mainMessage = ctx.client().chatPostMessage(r -> r
-//                .channel(channelId)
-//                .text("📢 Aukcja #" + auction.getAuctionId() + ": " + auction.getTitle())
-//                .blocks(buildAuctionBlocks(auction, channelId, null))
-//        );
-//
-//        if (!mainMessage.isOk()) {
-//            throw new RuntimeException("Błąd Slack API: " + mainMessage.getError());
-//        }
-//
-//        String threadTs = mainMessage.getTs();
-//
-//        ctx.client().chatPostMessage(r -> r
-//                .channel(channelId)
-//                .threadTs(threadTs)
-//                .text(" Wątek licytacyjny dla aukcji #" + auction.getAuctionId())
-//        );
-//
-//
-//        ctx.client().chatUpdate(r -> r
-//                .channel(channelId)
-//                .ts(threadTs)
-//                .blocks(buildAuctionBlocks(auction, channelId, threadTs))
-//                .text("📢 Aukcja #" + auction.getAuctionId() + ": " + auction.getTitle())
-//        );
-//
-//        return threadTs;
-//    }
 
     public String postAuctionToSlack(@NonNull final Auction auction, @NonNull final Context ctx, String channelId) throws IOException, SlackApiException {
         if (channelId == null || channelId.isEmpty()) {
@@ -147,7 +121,7 @@ public class SlackAuctionThreadServiceImpl implements SlackAuctionThreadService 
     }
 
 
-    private List<LayoutBlock> buildAuctionBlocks(@NonNull final Auction auction, String channelId, Object threadTs) {
+    public List<LayoutBlock> buildAuctionBlocks(@NonNull final Auction auction, String channelId, Object threadTs) {
         List<LayoutBlock> blocks = new ArrayList<>();
 
         blocks.add(section(s -> s.text(markdownText(
@@ -160,16 +134,48 @@ public class SlackAuctionThreadServiceImpl implements SlackAuctionThreadService 
                         ":page_facing_up: *Opis:* " + auction.getDescription() + "\n" +
                         ":hourglass_flowing_sand: *Start:* " + auction.getStartDateTime() + "\n" +
                         ":stopwatch: *Koniec:* " + auction.getEndDateTime() + "\n" +
-//                        ":bust_in_silhouette: *Wystawiający:* " + auction.getSupplierEntity().getFirstName() + " " + auction.getSupplierEntity().getLastName() + "\n" +
                         ":bust_in_silhouette: *Wystawiający:* " +
-                        (auction.getSupplierEntity() != null
-                                ? auction.getSupplierEntity().getFirstName() + " " + auction.getSupplierEntity().getLastName()
-                                : "_brak danych_") + "\n" +
-
+                        (auction.getSupplierFullName() != null
+                                ? auction.getSupplierFullName()
+                                : "Nieznana osoba wystawiająca przedmiot") + "\n" +
                         ":moneybag: *Cena wywoławcza:* " + auction.getBasePrice() + " zł"
         ))));
 
-//        blocks.add(image(i -> i.imageUrl(auction.getPhotoUrl()).altText("Zdjęcie aukcji")));
+        BigDecimal highestBidValue = Optional.ofNullable(auction.getBids())
+                .orElse(Collections.emptyList())
+                .stream()
+                .max(Comparator.comparing(Bid::getBidValue))
+                .map(Bid::getBidValue)
+                .orElse(auction.getBasePrice());
+
+        blocks.add(section(s -> s.text(markdownText(
+                ":arrow_up: *Aktualna najwyższa oferta:* " + highestBidValue + " zł"
+        ))));
+
+        String photoUrl = auction.getPhotoUrl();
+        if (photoUrl != null && !photoUrl.isBlank()) {
+            try {
+                String id = extractGoogleDriveFileId(photoUrl);
+
+                // a) jeśli URL wskazuje na plik => od razu robimy direct link
+                if (!photoUrl.contains("/folders/")) {
+                    String direct = "https://drive.google.com/uc?export=view&id=" + id;
+                    blocks.add(image(i -> i.imageUrl(direct).altText("Zdjęcie aukcji")));
+                }
+                // b) jeśli to folder – pobierz pierwszy obraz przez Drive API
+                else {
+                    String imageId = driveService.getFirstImageId(id);
+                    if (imageId != null) {
+                        String direct = "https://drive.google.com/uc?export=view&id=" + imageId;
+                        blocks.add(image(i -> i.imageUrl(direct).altText("Zdjęcie aukcji")));
+                    } else {
+                        log.warn("Folder {} nie zawiera publicznych obrazów; pomijam.", id);
+                    }
+                }
+            } catch (IllegalArgumentException e) {
+                log.warn("Nie udało się przekształcić linku do zdjęcia: {}", e.getMessage());
+            }
+        }
 
         blocks.add(buildContextBlock(channelId, threadTs));
 
@@ -291,5 +297,96 @@ public class SlackAuctionThreadServiceImpl implements SlackAuctionThreadService 
                 .text(sb.toString()));
     }
 
+
+    private String extractGoogleDriveFileId(String url) {
+        List<Pattern> patterns = List.of(
+                Pattern.compile("/file/d/([a-zA-Z0-9_-]+)"),      // /file/d/FILE_ID
+                Pattern.compile("/d/([a-zA-Z0-9_-]+)"),           // /d/FILE_ID
+                Pattern.compile("[?&]id=([a-zA-Z0-9_-]+)"),       // ?id=FILE_ID
+                Pattern.compile("/drive/folders/([a-zA-Z0-9_-]+)"), // /drive/folders/FOLDER_ID
+                Pattern.compile("/folders/([a-zA-Z0-9_-]+)")      // /folders/FOLDER_ID (bez /drive)
+        );
+
+        for (Pattern p : patterns) {
+            Matcher m = p.matcher(url);
+            if (m.find()) {
+                return m.group(1);
+            }
+        }
+        throw new IllegalArgumentException("Nieprawidłowy link do Google Drive: " + url);
+    }
+    public void finishAuctionOnSlack(@NonNull Auction auction) throws IOException, SlackApiException {
+        var channelId = slackProperties.getChannelId();
+        var messageTs = auction.getSlackMessageTs();
+
+        // 1️⃣ Wyłonienie zwycięzcy
+        Bid highestBid = Optional.ofNullable(auction.getBids())
+                .orElse(List.of())
+                .stream()
+                .max(Comparator.comparing(Bid::getBidValue))
+                .orElse(null);
+
+        // 2️⃣ Zmieniamy bloki – status NIEAKTYWNA + usuwamy przycisk
+        List<LayoutBlock> newBlocks = buildAuctionBlocks(auction, channelId, messageTs)
+                .stream()
+                .filter(b -> !(b instanceof com.slack.api.model.block.ActionsBlock))   // usuń przycisk
+                .map(b -> {
+                    if (b instanceof com.slack.api.model.block.SectionBlock sb &&
+                            sb.getText() != null &&
+                            sb.getText().getText().contains("statusie")) {
+
+                        var newText = sb.getText().getText()
+                                .replace("AKTYWNA", "NIEAKTYWNA");
+                        return section(s -> s.text(markdownText(newText)));
+                    }
+                    return b;
+                })
+                .toList();
+
+        slackClient.chatUpdate(r -> r
+                .channel(channelId)
+                .ts(messageTs)
+                .blocks(newBlocks)
+                .text("🔒 Aukcja #" + auction.getAuctionId() + " zakończona")
+        );
+
+        // 3️⃣ Wiadomość we wątku
+        if (highestBid != null) {
+            slackClient.chatPostMessage(r -> r
+                    .channel(channelId)
+                    .threadTs(messageTs)
+                    .text("🏆 Gratulacje <@" + highestBid.getParticipantSlackId() + ">! "
+                            + "Wygrałeś aukcję #" + auction.getAuctionId()
+                            + " za " + highestBid.getBidValue() + " zł."));
+        } else {
+            slackClient.chatPostMessage(r -> r
+                    .channel(channelId)
+                    .threadTs(messageTs)
+                    .text("⏰ Aukcja zakończona bez złożonych ofert."));
+        }
+    }
+
+    public void refreshPriceOnSlack(Auction auction) throws IOException, SlackApiException {
+        String channelId = slackProperties.getChannelId();
+        String ts = auction.getSlackMessageTs();
+
+        List<LayoutBlock> newBlocks = buildAuctionBlocks(auction, channelId, ts);
+
+        slackClient.chatUpdate(r -> r
+                .channel(channelId)
+                .ts(ts)
+                .blocks(newBlocks)
+                .text("📢 Aukcja #" + auction.getAuctionId() + ": " + auction.getTitle()));
+    }
+
+    public void sendBidToast(String slackUserId, BigDecimal bidValue, Auction auction)
+            throws IOException, SlackApiException {
+
+        slackClient.chatPostEphemeral(r -> r
+                .channel(slackProperties.getChannelId())
+                .user(slackUserId)
+                .text(":white_check_mark: Twoja oferta *" + bidValue + " zł* "
+                        + "dla aukcji *#" + auction.getAuctionId() + "* została zapisana."));
+    }
 
 }

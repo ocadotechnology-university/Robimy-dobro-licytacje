@@ -32,11 +32,7 @@ public class AuctionEndServiceImpl implements AuctionEndService {
     private final SlackProperties slackProperties;
     private final Clock clock;
 
-    @Scheduled(cron = "0 0 15 * * *")
-    @Transactional
-    public void endAuctionsScheduled() throws IOException, SlackApiException {
-        endAuctionsInternal(null);
-    }
+
 
     @Transactional
     public void endAuctionsManual(SlashCommandContext ctx) throws IOException, SlackApiException {
@@ -46,8 +42,7 @@ public class AuctionEndServiceImpl implements AuctionEndService {
         }
     }
 
-    @Transactional
-    protected void endAuctionsInternal(SlashCommandContext ctx) throws IOException, SlackApiException {
+     void endAuctionsInternal(SlashCommandContext ctx) throws IOException, SlackApiException {
         LocalDateTime now = LocalDateTime.now(clock);
 
         List<Auction> auctionsToEnd = auctionRepository.findAll().stream()

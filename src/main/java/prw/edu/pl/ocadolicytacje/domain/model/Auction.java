@@ -1,11 +1,13 @@
 package prw.edu.pl.ocadolicytacje.domain.model;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import prw.edu.pl.ocadolicytacje.infrastructure.entity.ModeratorEntity;
 import prw.edu.pl.ocadolicytacje.infrastructure.entity.ParticipantEntity;
-import prw.edu.pl.ocadolicytacje.infrastructure.entity.SupplierEntity;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -40,10 +42,12 @@ public class Auction {
 
     ModeratorEntity moderatorEntity;
 
-    SupplierEntity supplierEntity;
+    String supplierFullName;
 
     String slackMessageTs;
     Boolean status;
+
+    @OneToMany(mappedBy = "auctionEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<Bid> bids;
 
     public List<Bid> getBids() {
