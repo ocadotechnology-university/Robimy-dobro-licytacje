@@ -70,7 +70,7 @@ public class BidModalHandler implements ViewSubmissionHandler {
 
             if (inputValueIsLowerThanActual(inputBidValue, highestBid)) {
                 log.info("Provided price: {} is lower than actual highest price: {}", inputBidValue, highestBid);
-                String errorMessage = "Provided price: %s is equal or lower than actual highest price: %s".formatted(inputBidValue, highestBid);
+                String errorMessage = "Wprowadzona kwota %s jest niższa, od aktualnej kwoty licytacji: %s  ".formatted(inputBidValue, highestBid);
 
                 // Wysyłamy wiadomość do kanału z informacją
                 try {
@@ -149,12 +149,8 @@ public class BidModalHandler implements ViewSubmissionHandler {
             log.info("Znaleziono {} bidów dla aukcji {}",
                     updatedAuction.getBids().size(), updatedAuction.getAuctionId());
 
-            ctx.client().chatUpdate(r -> r
-                    .channel(channelId)
-                    .ts(messageTs)
-                    .blocks(slackAuctionThreadService.buildAuctionBlocks(updatedAuction, channelId, messageTs))
-                    .text("📢 Aukcja #" + updatedAuction.getAuctionId() + ": " + updatedAuction.getTitle())
-            );
+            slackAuctionThreadService.refreshPriceOnSlack(updatedAuction);
+            slackAuctionThreadService.sendBidToast(userId, inputBidValue, updatedAuction);
 
 
             BidEntity previousHighestBid = bidEntities.stream()
@@ -216,10 +212,16 @@ public class BidModalHandler implements ViewSubmissionHandler {
                 throw new IllegalStateException("Brak action_id 'bid_input' w ViewState.block[bid_value]");
             }
 
-            String value = actionMap.get("bid_input").getValue();
-            log.info("Pobrana wartość z modala: {}", value);
+            String rawValue = actionMap.get("bid_input").getValue();
+            log.info("Pobrana wartość z modala: {}", rawValue);
 
-            return new BigDecimal(value);
+            String normalized = rawValue.replace(',', '.').trim();
+
+            if (!normalized.matches("\\d+(\\.\\d{1,2})?")) {
+                throw new IllegalArgumentException("Niepoprawny format kwoty: " + rawValue);
+            }
+
+            return new BigDecimal(normalized);
         } catch (Exception e) {
             log.error("Błąd przy pobieraniu wartości inputa z ViewState: {}", e.getMessage(), e);
             throw new IllegalStateException("Nie udało się pobrać wartości z modala: " + e.getMessage());

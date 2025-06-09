@@ -30,13 +30,13 @@
                 <constraints nullable="false"/>
             </column>
             <column name="status" type="bool">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="link_to_thread" type="VARCHAR(512)"/>
             <column name="fk_winner_id" type="BIGINT"/>
             <column name="win_price" type="NUMERIC(4,2)"/>
             <column name="moderator_id" type="BIGINT"/>
-            <column name="supplier_id" type="BIGINT"/>
+            <column name="supplier_full_name" type="BIGINT"/>
         </createTable>
 
         <addForeignKeyConstraint baseTableName="auction" baseColumnNames="fk_winner_id"
@@ -47,9 +47,6 @@
                                  constraintName="fk_auction_moderator"
                                  referencedTableName="moderator" referencedColumnNames="moderator_id"/>
 
-        <addForeignKeyConstraint baseTableName="auction" baseColumnNames="supplier_id"
-                                 constraintName="fk_auction_supplier"
-                                 referencedTableName="supplier" referencedColumnNames="supplier_id"/>
     </changeSet>
 
 </databaseChangeLog>

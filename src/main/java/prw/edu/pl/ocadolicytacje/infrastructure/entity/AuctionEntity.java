@@ -61,9 +61,8 @@ public class AuctionEntity {
     @JoinColumn(name = "moderator_id")
     private ModeratorEntity moderatorEntity;
 
-    @ManyToOne
-    @JoinColumn(name = "supplier_id")
-    private SupplierEntity supplierEntity;
+    @Column(name = "supplier_full_name")
+    private String supplierFullName;
 
     @Column(name = "slack_message_ts")
     private String slackMessageTs;

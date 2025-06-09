@@ -31,5 +31,7 @@ server:
 logging:
   file:
     name: logs/app.log
+gdrive:
+  api-key: AIzaSyAHxRxwabwzRihTrTqgYYNXSfD-pa1MFbo
 
 
