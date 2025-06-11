@@ -46,7 +46,6 @@ public class AuctionActivationServiceImpl implements AuctionActivationService {
     }
 
     public void activateAuctionManually(SlashCommandContext ctx) throws SlackApiException, IOException {
-        // logika aktywacji może być taka sama, ale używa metody z ctx, żeby wysłać odpowiedź
         LocalDateTime now = LocalDateTime.now(clock);
         LocalDate today = now.toLocalDate();
         LocalDateTime startOfToday = today.atTime(6, 0);

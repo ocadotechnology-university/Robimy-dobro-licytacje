@@ -218,6 +218,23 @@ public class SlackSocketModeConfig {
             }
         });
 
+        app.command("aktywuj_aukcje", (req, ctx) -> {
+            String text = req.getPayload().getText();
+            log.info("Odebrany tekst z komendy: '{}'", text);
+            try {
+                auctionActivationServiceImpl.activateAuctionManually(ctx);
+
+                return ctx.ack();
+            } catch (DateTimeParseException e) {
+                log.info("Podano datę rozpoczęcia w błędnym formacie. Prawidłowy format to: YYYY-MM-DD", e);
+                return ctx.ack("Podano datę rozpoczęcia w błędnym formacie. Prawidłowy format to: YYYY-MM-DD");
+            }
+            catch (Exception e) {
+                log.error("Błąd podczas tworzenia aukcji", e);
+                return ctx.ack("❌ Wystąpił błąd podczas ręcznej aktywacji aukcji: " + e.getMessage());
+            }
+        });
+
         return app;
     }
 

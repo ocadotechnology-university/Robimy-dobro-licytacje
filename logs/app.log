@@ -5140,3 +5140,9 @@ java.net.SocketTimeoutException: timeout
 2025-06-11T21:30:48.877+02:00  INFO 39292 --- [ocado-licytacje] [socket-mode-message-processor-worker-68] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=184
 2025-06-11T21:30:49.737+02:00  INFO 39292 --- [ocado-licytacje] [socket-mode-message-processor-worker-68] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=185
 2025-06-11T21:30:50.559+02:00  INFO 39292 --- [ocado-licytacje] [socket-mode-message-processor-worker-68] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=186
+2025-06-11T21:32:35.314+02:00  INFO 39292 --- [ocado-licytacje] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-06-11T21:32:35.493+02:00  INFO 39292 --- [ocado-licytacje] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-06-11T21:32:37.925+02:00  INFO 39292 --- [ocado-licytacje] [SpringApplicationShutdownHook] c.s.api.socket_mode.SocketModeClient     : onClose listener is called (session id: bc993ab9-6469-4ad4-bc33-47b04b754abd, reason: com.slack.api.jakarta_socket_mode.impl.JakartaSocketModeClientTyrusImpl did it)
+2025-06-11T21:32:37.928+02:00  INFO 39292 --- [ocado-licytacje] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-11T21:32:37.939+02:00  INFO 39292 --- [ocado-licytacje] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-06-11T21:32:37.943+02:00  INFO 39292 --- [ocado-licytacje] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
