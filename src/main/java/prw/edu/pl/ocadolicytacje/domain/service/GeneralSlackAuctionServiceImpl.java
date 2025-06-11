@@ -1,6 +1,7 @@
 package prw.edu.pl.ocadolicytacje.domain.service;
 
 import com.slack.api.bolt.context.builtin.SlashCommandContext;
+import com.slack.api.bolt.context.builtin.ViewSubmissionContext;
 import com.slack.api.methods.SlackApiException;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -30,11 +31,14 @@ public class GeneralSlackAuctionServiceImpl implements GeneralSlackAuctionServic
     private final SlackProperties slackProperties;
 
 
-    public void createAuctionThreadAndPostOnChannel(@NonNull final LocalDate date, @NonNull final SlashCommandContext context) throws SlackApiException, IOException {
+    public void createAuctionThreadAndPostOnChannel(@NonNull final LocalDate startDate,
+                                                    @NonNull final SlashCommandContext context) throws SlackApiException, IOException {
         auctionCsvImportService.saveImportedModeratorSupplierAuctionEntities();
-        final LocalDateTime startOfDay = date.atStartOfDay();
-        final LocalDateTime endOfDay = date.atTime(LocalTime.MAX);
-        final List<Auction> allByStartDateTimeBetween = auctionRepository.findAllByStartDateTimeBetween(startOfDay, endOfDay);
+
+        LocalDateTime startDateTime = startDate.atStartOfDay();
+        LocalDateTime endDateTime= startDate.atTime(LocalTime.MAX);
+
+        final List<Auction> allByStartDateTimeBetween = auctionRepository.findAllByStartDateTimeBetween(startDateTime, endDateTime);
         for (Auction auction : allByStartDateTimeBetween) {
             final String channelId = slackProperties.getChannelId();
             final String threadTs = slackAuctionThreadServiceImpl.postAuctionToSlack(auction, context, channelId);
@@ -46,5 +50,24 @@ public class GeneralSlackAuctionServiceImpl implements GeneralSlackAuctionServic
 
     }
 
+    public void createAuctionThreadAndPostOnChannel(@NonNull final LocalDate startDate,
+                                                    @NonNull LocalTime startTime,
+                                                    @NonNull LocalTime endTime,
+                                                    @NonNull final ViewSubmissionContext context) throws SlackApiException, IOException {
+        auctionCsvImportService.saveImportedModeratorSupplierAuctionEntities();
 
+        LocalDateTime startDateTime = startDate.atTime(startTime);
+        LocalDateTime endDateTime = startDate.atTime(endTime);
+
+        final List<Auction> allByStartDateTimeBetween = auctionRepository.findAllByStartDateTimeBetween(startDateTime, endDateTime);
+        for (Auction auction : allByStartDateTimeBetween) {
+            final String channelId = slackProperties.getChannelId();
+            final String threadTs = slackAuctionThreadServiceImpl.postAuctionToSlack(auction, context, channelId);
+            final String threadLink = "https://slack.com/app_redirect?channel=" + channelId + "&thread_ts=" + threadTs;
+            auction.setLinkToThread(threadLink);
+            auction.setSlackMessageTs(threadTs);
+        }
+        auctionRepository.saveAll(allByStartDateTimeBetween);
+
+    }
 }

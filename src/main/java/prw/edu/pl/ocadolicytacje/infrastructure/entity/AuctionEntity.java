@@ -47,8 +47,9 @@ public class AuctionEntity {
     @Column(name = "link_to_thread", nullable = false)
     private String linkToThread;
 
-    @Column(name = "status", nullable = true)
-    private Boolean status;
+    @Builder.Default
+    @Column(name = "status", nullable = false)
+    private Boolean status = false;
 
     @ManyToOne
     @JoinColumn(name = "fk_winner_id")

@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 @Service
 public class AuctionSheetMapper {
 
-
     public static final String MODERATOR_AUKCJI = "Moderator aukcji";
     public static final String ZAKOŃCZENIE_AUKCJI = "Zakończenie aukcji";
     public static final String PREFEROWANY_DZIEŃ_AUKCJI = "Preferowany dzień aukcji";

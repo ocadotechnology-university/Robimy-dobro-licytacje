@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 public class AuctionCsvRowDto {
-
     private final String moderatorFullName;
     private final LocalDateTime auctionStartDateTime;
     private final LocalDateTime auctionEndDateTime;
@@ -52,6 +51,7 @@ public class AuctionCsvRowDto {
         private String city;
         private BigDecimal basePrice;
 
+
         public Builder moderatorFullName(String name) {
             if (!isValidFullName(name)) {
                 throw new IllegalArgumentException("Moderator musi mieć imię i nazwisko z dużych liter.");
@@ -61,8 +61,8 @@ public class AuctionCsvRowDto {
         }
 
         public Builder auctionStartDateTime(LocalDateTime dateTime) {
-            if (dateTime == null || dateTime.isBefore(LocalDateTime.now())) {
-                throw new IllegalArgumentException("Data aukcji musi być w przyszłości.");
+            if (dateTime == null /*|| dateTime.isBefore(LocalDateTime.now())*/) {
+                throw new IllegalArgumentException("Data aukcji nie może być nullem.");
             }
             this.auctionStartDateTime = dateTime;
             return this;

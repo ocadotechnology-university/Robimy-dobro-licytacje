@@ -32,7 +32,7 @@ public class AuctionCsvImportService {
 
     public void saveImportedModeratorSupplierAuctionEntities() {
 
-        List<List<Object>> csvData = null;
+        List<List<Object>> csvData;
         try {
             csvData = googleSheetReader.getCsvData();
         } catch (GeneralSecurityException e) {
@@ -42,9 +42,15 @@ public class AuctionCsvImportService {
             log.warn(DATA_RETRIEVAL_MESSAGE);
             throw new DataRetrievalIOException(DATA_RETRIEVAL_MESSAGE, e);
         }
+
         List<AuctionCsvRowDto> auctionCsvRowDtoList = auctionSheetMapper.map(csvData);
 
         for (AuctionCsvRowDto auctionCsvRowDto : auctionCsvRowDtoList) {
+            if (auctionCsvRowDto.getAuctionStartDateTime() == null ||
+                auctionCsvRowDto.getAuctionStartDateTime().isBefore(LocalDateTime.now())) {
+                continue;
+            }
+
             ModeratorEntity moderatorEntity = createModeratorEntity(auctionCsvRowDto.getModeratorFullName());
             moderatorRepositoryJpa.save(moderatorEntity);
             SupplierEntity supplierEntity = createSupplierEntity(auctionCsvRowDto.getSupplierFullName());
