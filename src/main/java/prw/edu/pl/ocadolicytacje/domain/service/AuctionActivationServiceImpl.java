@@ -28,14 +28,15 @@ public class AuctionActivationServiceImpl implements AuctionActivationService {
     private final Clock clock;
 
     @Override
-    @Scheduled(cron = "0 0 8 * * *")
+    @Scheduled(cron = "0 26 14 * * *")
     @Transactional
     public void activateScheduledAuction() throws SlackApiException, IOException {
         LocalDateTime now = LocalDateTime.now(clock);
         LocalDate today = now.toLocalDate();
-        LocalDateTime startOfToday = today.atTime(6, 0);
+        LocalDateTime startOfToday = today.atTime(0, 0);
+        LocalDateTime endOfToday = today.atTime(23, 59);
 
-        List<Auction> auctionsToActivate = auctionRepository.findByStatusFalseAndStartDateTime(startOfToday);
+        List<Auction> auctionsToActivate = auctionRepository.findAllByStartDateTimeBetween(startOfToday, endOfToday);
 
         for (Auction auction : auctionsToActivate) {
             auction.setStatus(true);
@@ -52,7 +53,11 @@ public class AuctionActivationServiceImpl implements AuctionActivationService {
         LocalDateTime endOfToday = today.atTime(23, 59);
 
         List<Auction> auctionsToActivate = auctionRepository.findAllByStartDateTimeBetween(startOfToday, endOfToday);
-        System.out.println(auctionsToActivate);
+
+        if (auctionsToActivate.isEmpty()) {
+            ctx.respond("Brak aukcji do aktywacji na dzisiaj.");
+            return;
+        }
 
         for (Auction auction : auctionsToActivate) {
             auction.setStatus(true);
@@ -63,5 +68,45 @@ public class AuctionActivationServiceImpl implements AuctionActivationService {
         ctx.respond("Aukcje zostały aktywowane ręcznie.");
     }
 
+    public void deactivateAuctionManually(SlashCommandContext ctx) throws SlackApiException, IOException {
+        LocalDateTime now = LocalDateTime.now(clock);
+        LocalDate today = now.toLocalDate();
+        LocalDateTime startOfToday = today.atTime(0, 0);
+        LocalDateTime endOfToday = today.atTime(23, 59);
+
+        List<Auction> auctionsToActivate = auctionRepository.findAllByStartDateTimeBetween(startOfToday, endOfToday);
+
+        if (auctionsToActivate.isEmpty()) {
+            ctx.respond("Brak aukcji do aktywacji na dzisiaj.");
+            return;
+        }
+
+        for (Auction auction : auctionsToActivate) {
+            auction.setStatus(true);
+            auctionRepository.save(auction);
+
+            slackAuctionThreadServiceImpl.updateSlackAuctionStatus(ctx, auction);
+        }
+        ctx.respond("Aukcje zostały aktywowane ręcznie.");
+    }
+
+    @Override
+    @Scheduled(cron = "0 58 14 * * *")
+    @Transactional
+    public void deactivateScheduledAuction() throws SlackApiException, IOException {
+        LocalDateTime now = LocalDateTime.now(clock);
+        LocalDate today = now.toLocalDate();
+        LocalDateTime startOfToday = today.atTime(0, 0);
+        LocalDateTime endOfToday = today.atTime(23, 59);
+
+        List<Auction> auctionsToActivate = auctionRepository.findAllByStartDateTimeBetween(startOfToday, endOfToday);
+
+        for (Auction auction : auctionsToActivate) {
+            auction.setStatus(false);
+            auctionRepository.save(auction);
+
+            slackAuctionThreadServiceImpl.updateSlackAuctionStatus(auction);
+        }
+    }
 
 }

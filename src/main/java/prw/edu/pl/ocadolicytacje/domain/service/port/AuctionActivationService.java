@@ -11,4 +11,5 @@ public interface AuctionActivationService {
      */
     void activateAuctionManually(SlashCommandContext ctx) throws SlackApiException, IOException;
     void activateScheduledAuction() throws SlackApiException, IOException;
+    void deactivateScheduledAuction() throws SlackApiException, IOException;
 }

@@ -165,39 +165,70 @@ public class SlackAuctionThreadServiceImpl implements SlackAuctionThreadService 
     }
 
     public void updateSlackAuctionStatus(SlashCommandContext ctx, @NonNull final Auction auction) throws SlackApiException, IOException {
-
         final String channelId = slackProperties.getChannelId();
         final String messageTs = auction.getSlackMessageTs();
 
 
-        ctx.client().chatUpdate(r -> r
-                .channel(channelId)
-                .ts(messageTs)
-                .blocks(buildAuctionBlocks(auction, channelId, messageTs))
-                .text("📢 Aukcja #" + auction.getAuctionId() + ": " + auction.getTitle())
-        );
+        if (auction.getStatus()) {
+            slackClient.chatUpdate(r -> r
+                    .channel(channelId)
+                    .ts(messageTs)
+                    .blocks(buildAuctionBlocks(auction, channelId, messageTs))
+                    .text("📢 Aukcja #" + auction.getAuctionId() + ": " + auction.getTitle())
+            );
 
-        ctx.client().chatPostMessage(r -> r
-                .channel(channelId)
-                .threadTs(messageTs)
-                .text("✅ Aukcja została aktywowana. Można licytować!"));
+            slackClient.chatPostMessage(r -> r
+                    .channel(channelId)
+                    .threadTs(messageTs)
+                    .text("✅ Aukcja została aktywowana. Można licytować!"));
+        }
+        else if (!auction.getStatus()) {
+            // Aukcja nieaktywna - bez przycisku (buildAuctionBlocks zwraca bloki bez przycisku)
+            slackClient.chatUpdate(r -> r
+                    .channel(channelId)
+                    .ts(messageTs)
+                    .blocks(buildAuctionBlocks(auction, channelId, messageTs))  // bez przycisku!
+                    .text("📢 Aukcja #" + auction.getAuctionId() + ": " + auction.getTitle() + " (nieaktywna)")
+            );
+
+            slackClient.chatPostMessage(r -> r
+                    .channel(channelId)
+                    .threadTs(messageTs)
+                    .text("❌ Aukcja została dezaktywowana. Licytacje są zamknięte."));
+        }
     }
 
     public void updateSlackAuctionStatus(@NonNull final Auction auction) throws SlackApiException, IOException {
         final String channelId = slackProperties.getChannelId();
         final String messageTs = auction.getSlackMessageTs();
 
-        slackClient.chatUpdate(r -> r
-                .channel(channelId)
-                .ts(messageTs)
-                .blocks(buildAuctionBlocks(auction, channelId, messageTs))
-                .text("📢 Aukcja #" + auction.getAuctionId() + ": " + auction.getTitle())
-        );
+        if (auction.getStatus()) {
+            slackClient.chatUpdate(r -> r
+                    .channel(channelId)
+                    .ts(messageTs)
+                    .blocks(buildAuctionBlocks(auction, channelId, messageTs))
+                    .text("📢 Aukcja #" + auction.getAuctionId() + ": " + auction.getTitle())
+            );
 
-        slackClient.chatPostMessage(r -> r
-                .channel(channelId)
-                .threadTs(messageTs)
-                .text("✅ Aukcja została aktywowana. Można licytować!"));
+            slackClient.chatPostMessage(r -> r
+                    .channel(channelId)
+                    .threadTs(messageTs)
+                    .text("✅ Aukcja została aktywowana. Można licytować!"));
+        }
+        else if (!auction.getStatus()) {
+            // Aukcja nieaktywna - bez przycisku (buildAuctionBlocks zwraca bloki bez przycisku)
+            slackClient.chatUpdate(r -> r
+                    .channel(channelId)
+                    .ts(messageTs)
+                    .blocks(buildAuctionBlocks(auction, channelId, messageTs))  // bez przycisku!
+                    .text("📢 Aukcja #" + auction.getAuctionId() + ": " + auction.getTitle() + " (nieaktywna)")
+            );
+
+            slackClient.chatPostMessage(r -> r
+                    .channel(channelId)
+                    .threadTs(messageTs)
+                    .text("❌ Aukcja została dezaktywowana. Licytacje są zamknięte."));
+        }
     }
 
     public void sendPrivateWinMessage(Participant participant, Auction auction, Context ctx) throws IOException, SlackApiException {

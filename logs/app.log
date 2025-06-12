@@ -225,3 +225,481 @@
 2025-06-12T14:19:25.975+02:00  INFO 14252 --- [ocado-licytacje] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2025-06-12T14:19:25.982+02:00  INFO 14252 --- [ocado-licytacje] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2025-06-12T14:19:25.992+02:00  INFO 14252 --- [ocado-licytacje] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-06-12T14:25:54.311+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] p.e.p.o.OcadoLicytacjeApplication        : Starting OcadoLicytacjeApplication using Java 17.0.14 with PID 12332 (C:\Users\User\IdeaProjects\Robimy-dobro-licytacje\build\classes\java\main started by User in C:\Users\User\IdeaProjects\Robimy-dobro-licytacje)
+2025-06-12T14:25:54.314+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] p.e.p.o.OcadoLicytacjeApplication        : No active profile set, falling back to 1 default profile: "default"
+2025-06-12T14:25:54.401+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-06-12T14:25:54.401+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-06-12T14:25:55.893+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-12T14:25:56.115+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 208 ms. Found 8 JPA repository interfaces.
+2025-06-12T14:25:56.808+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8190 (http)
+2025-06-12T14:25:56.825+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-06-12T14:25:56.826+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-06-12T14:25:56.896+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] o.a.c.c.C.[.[localhost].[/licytacje]     : Initializing Spring embedded WebApplicationContext
+2025-06-12T14:25:56.896+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2494 ms
+2025-06-12T14:25:57.056+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-06-12T14:25:57.321+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5424c9bc
+2025-06-12T14:25:57.325+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-06-12T14:25:57.515+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.database                       : Set default schema name to public
+2025-06-12T14:25:58.138+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.changelog                      : Reading from public.databasechangelog
+2025-06-12T14:25:58.196+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.ui                             : Database is up to date, no changesets to execute
+2025-06-12T14:25:58.197+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.changelog                      : Reading from public.databasechangelog
+2025-06-12T14:25:58.207+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.util                           : UPDATE SUMMARY
+2025-06-12T14:25:58.207+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Run:                          0
+2025-06-12T14:25:58.207+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Previously run:               6
+2025-06-12T14:25:58.207+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Filtered out:                 0
+2025-06-12T14:25:58.207+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.util                           : -------------------------------
+2025-06-12T14:25:58.207+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Total change sets:            6
+2025-06-12T14:25:58.208+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Update summary generated
+2025-06-12T14:25:58.209+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.command                        : Command execution complete
+2025-06-12T14:25:58.290+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-12T14:25:58.372+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.11.Final
+2025-06-12T14:25:58.435+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-06-12T14:25:58.917+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-12T14:25:58.964+02:00  WARN 12332 --- [ocado-licytacje] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-06-12T14:25:58.998+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.4
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-12T14:26:00.189+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-12T14:26:00.495+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-12T14:26:04.754+02:00  INFO 12332 --- [ocado-licytacje] [Grizzly(2)] c.s.api.socket_mode.SocketModeClient     : New session is open (session id: b2ae8586-e574-40d0-8e74-3d670b1d464f)
+2025-06-12T14:26:04.977+02:00  WARN 12332 --- [ocado-licytacje] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-06-12T14:26:05.454+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-06-12T14:26:05.626+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8190 (http) with context path '/licytacje'
+2025-06-12T14:26:05.640+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] p.e.p.o.OcadoLicytacjeApplication        : Started OcadoLicytacjeApplication in 12.357 seconds (process running for 13.152)
+2025-06-12T14:26:06.786+02:00  INFO 12332 --- [ocado-licytacje] [socket-mode-message-processor-worker-72] p.e.p.o.config.SlackSocketModeConfig     : Odebrany tekst z komendy: ''
+2025-06-12T14:26:13.536+02:00  INFO 12332 --- [ocado-licytacje] [socket-mode-message-processor-worker-72] p.e.p.o.config.SlackSocketModeConfig     : Odebrany tekst z komendy: ''
+2025-06-12T14:26:13.538+02:00  INFO 12332 --- [ocado-licytacje] [socket-mode-message-processor-worker-72] p.e.p.o.config.SlackSocketModeConfig     : Podano datę rozpoczęcia w błędnym formacie. Prawidłowy format to: YYYY-MM-DD
+
+java.time.format.DateTimeParseException: Text '' could not be parsed at index 0
+	at java.base/java.time.format.DateTimeFormatter.parseResolved0(DateTimeFormatter.java:2052) ~[na:na]
+	at java.base/java.time.format.DateTimeFormatter.parse(DateTimeFormatter.java:1954) ~[na:na]
+	at java.base/java.time.LocalDate.parse(LocalDate.java:430) ~[na:na]
+	at java.base/java.time.LocalDate.parse(LocalDate.java:415) ~[na:na]
+	at prw.edu.pl.ocadolicytacje.config.SlackSocketModeConfig.lambda$slackApp$0(SlackSocketModeConfig.java:105) ~[main/:na]
+	at com.slack.api.bolt.App.runHandler(App.java:1180) ~[bolt-1.45.3.jar:1.45.3]
+	at com.slack.api.bolt.App.lambda$runMiddleware$5(App.java:1110) ~[bolt-1.45.3.jar:1.45.3]
+	at com.slack.api.bolt.middleware.builtin.IgnoringSelfEvents.apply(IgnoringSelfEvents.java:108) ~[bolt-1.45.3.jar:1.45.3]
+	at com.slack.api.bolt.App.runMiddleware(App.java:1110) ~[bolt-1.45.3.jar:1.45.3]
+	at com.slack.api.bolt.App.lambda$runMiddleware$6(App.java:1113) ~[bolt-1.45.3.jar:1.45.3]
+	at com.slack.api.bolt.middleware.builtin.SingleTeamAuthorization.apply(SingleTeamAuthorization.java:98) ~[bolt-1.45.3.jar:1.45.3]
+	at com.slack.api.bolt.App.runMiddleware(App.java:1113) ~[bolt-1.45.3.jar:1.45.3]
+	at com.slack.api.bolt.App.lambda$runMiddleware$6(App.java:1113) ~[bolt-1.45.3.jar:1.45.3]
+	at com.slack.api.bolt.middleware.builtin.RequestVerification.apply(RequestVerification.java:27) ~[bolt-1.45.3.jar:1.45.3]
+	at com.slack.api.bolt.App.runMiddleware(App.java:1113) ~[bolt-1.45.3.jar:1.45.3]
+	at com.slack.api.bolt.App.lambda$runMiddleware$6(App.java:1113) ~[bolt-1.45.3.jar:1.45.3]
+	at com.slack.api.bolt.middleware.builtin.SSLCheck.apply(SSLCheck.java:51) ~[bolt-1.45.3.jar:1.45.3]
+	at com.slack.api.bolt.App.runMiddleware(App.java:1113) ~[bolt-1.45.3.jar:1.45.3]
+	at com.slack.api.bolt.App.run(App.java:598) ~[bolt-1.45.3.jar:1.45.3]
+	at com.slack.api.bolt.jakarta_socket_mode.SocketModeApp.runBoltApp(SocketModeApp.java:113) ~[bolt-jakarta-socket-mode-1.45.3.jar:1.45.3]
+	at com.slack.api.bolt.jakarta_socket_mode.SocketModeApp.lambda$buildSocketModeClientFactory$2(SocketModeApp.java:90) ~[bolt-jakarta-socket-mode-1.45.3.jar:1.45.3]
+	at com.slack.api.socket_mode.SocketModeClient.processMessage(SocketModeClient.java:386) ~[slack-api-client-1.45.3.jar:1.45.3]
+	at com.slack.api.socket_mode.SocketModeClient.lambda$initializeMessageProcessorExecutor$0(SocketModeClient.java:166) ~[slack-api-client-1.45.3.jar:1.45.3]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-06-12T14:26:35.516+02:00  INFO 12332 --- [ocado-licytacje] [socket-mode-message-processor-worker-72] p.e.p.o.config.SlackSocketModeConfig     : Odebrany tekst z komendy: '2025-06-12'
+2025-06-12T14:26:37.160+02:00  INFO 12332 --- [ocado-licytacje] [socket-mode-message-processor-worker-72] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=187
+2025-06-12T14:26:37.846+02:00  INFO 12332 --- [ocado-licytacje] [socket-mode-message-processor-worker-72] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=188
+2025-06-12T14:26:38.600+02:00  INFO 12332 --- [ocado-licytacje] [socket-mode-message-processor-worker-72] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=189
+2025-06-12T14:26:40.119+02:00  INFO 12332 --- [ocado-licytacje] [socket-mode-message-processor-worker-72] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=190
+2025-06-12T14:26:40.827+02:00  INFO 12332 --- [ocado-licytacje] [socket-mode-message-processor-worker-72] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=191
+2025-06-12T14:27:13.578+02:00  INFO 12332 --- [ocado-licytacje] [socket-mode-message-processor-worker-72] p.e.p.o.config.SlackSocketModeConfig     : Odebrany tekst z komendy: '2025-06-12'
+2025-06-12T14:27:14.744+02:00  INFO 12332 --- [ocado-licytacje] [socket-mode-message-processor-worker-72] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=187
+2025-06-12T14:27:15.439+02:00  INFO 12332 --- [ocado-licytacje] [socket-mode-message-processor-worker-72] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=188
+2025-06-12T14:27:16.109+02:00  INFO 12332 --- [ocado-licytacje] [socket-mode-message-processor-worker-72] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=189
+2025-06-12T14:27:17.809+02:00  INFO 12332 --- [ocado-licytacje] [socket-mode-message-processor-worker-72] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=190
+2025-06-12T14:27:18.557+02:00  INFO 12332 --- [ocado-licytacje] [socket-mode-message-processor-worker-72] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=191
+2025-06-12T14:27:19.562+02:00  INFO 12332 --- [ocado-licytacje] [socket-mode-message-processor-worker-72] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=192
+2025-06-12T14:27:20.334+02:00  INFO 12332 --- [ocado-licytacje] [socket-mode-message-processor-worker-72] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=193
+2025-06-12T14:28:13.657+02:00  INFO 12332 --- [ocado-licytacje] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 2 class path changes (0 additions, 2 deletions, 0 modifications)
+2025-06-12T14:28:13.663+02:00  INFO 12332 --- [ocado-licytacje] [Thread-20] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-06-12T14:28:13.997+02:00  INFO 12332 --- [ocado-licytacje] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-06-12T14:28:14.299+02:00  INFO 12332 --- [ocado-licytacje] [Thread-20] c.s.api.socket_mode.SocketModeClient     : onClose listener is called (session id: b2ae8586-e574-40d0-8e74-3d670b1d464f, reason: com.slack.api.jakarta_socket_mode.impl.JakartaSocketModeClientTyrusImpl did it)
+2025-06-12T14:28:14.304+02:00  INFO 12332 --- [ocado-licytacje] [Thread-20] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-12T14:28:14.306+02:00  INFO 12332 --- [ocado-licytacje] [Thread-20] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-06-12T14:28:14.309+02:00  INFO 12332 --- [ocado-licytacje] [Thread-20] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-06-12T14:28:14.415+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] p.e.p.o.OcadoLicytacjeApplication        : Starting OcadoLicytacjeApplication using Java 17.0.14 with PID 12332 (C:\Users\User\IdeaProjects\Robimy-dobro-licytacje\build\classes\java\main started by User in C:\Users\User\IdeaProjects\Robimy-dobro-licytacje)
+2025-06-12T14:28:14.415+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] p.e.p.o.OcadoLicytacjeApplication        : No active profile set, falling back to 1 default profile: "default"
+2025-06-12T14:28:14.761+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-12T14:28:14.800+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 37 ms. Found 8 JPA repository interfaces.
+2025-06-12T14:28:14.952+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8190 (http)
+2025-06-12T14:28:14.952+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-06-12T14:28:14.953+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-06-12T14:28:14.983+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] o.a.c.c.C.[.[localhost].[/licytacje]     : Initializing Spring embedded WebApplicationContext
+2025-06-12T14:28:14.983+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 565 ms
+2025-06-12T14:28:15.025+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2025-06-12T14:28:15.093+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@64f15cb4
+2025-06-12T14:28:15.093+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2025-06-12T14:28:15.107+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.database                       : Set default schema name to public
+2025-06-12T14:28:15.322+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.changelog                      : Reading from public.databasechangelog
+2025-06-12T14:28:15.346+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.ui                             : Database is up to date, no changesets to execute
+2025-06-12T14:28:15.348+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.changelog                      : Reading from public.databasechangelog
+2025-06-12T14:28:15.351+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.util                           : UPDATE SUMMARY
+2025-06-12T14:28:15.351+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Run:                          0
+2025-06-12T14:28:15.352+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Previously run:               6
+2025-06-12T14:28:15.352+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Filtered out:                 0
+2025-06-12T14:28:15.352+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.util                           : -------------------------------
+2025-06-12T14:28:15.352+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Total change sets:            6
+2025-06-12T14:28:15.352+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Update summary generated
+2025-06-12T14:28:15.352+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.command                        : Command execution complete
+2025-06-12T14:28:15.376+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-12T14:28:15.383+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-06-12T14:28:15.406+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-12T14:28:15.410+02:00  WARN 12332 --- [ocado-licytacje] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-06-12T14:28:15.411+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-2)']
+	Database driver: undefined/unknown
+	Database version: 17.4
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-12T14:28:15.580+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-12T14:28:16.008+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-12T14:28:18.375+02:00  INFO 12332 --- [ocado-licytacje] [Grizzly(2)] c.s.api.socket_mode.SocketModeClient     : New session is open (session id: b8489f82-48b8-4402-90eb-68dba76d5794)
+2025-06-12T14:28:18.485+02:00  WARN 12332 --- [ocado-licytacje] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-06-12T14:28:18.835+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-06-12T14:28:18.863+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8190 (http) with context path '/licytacje'
+2025-06-12T14:28:18.884+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] p.e.p.o.OcadoLicytacjeApplication        : Started OcadoLicytacjeApplication in 4.509 seconds (process running for 146.392)
+2025-06-12T14:28:18.888+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-06-12T14:28:20.270+02:00  INFO 12332 --- [ocado-licytacje] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 2 class path changes (2 additions, 0 deletions, 0 modifications)
+2025-06-12T14:28:20.270+02:00  INFO 12332 --- [ocado-licytacje] [Thread-22] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-06-12T14:28:20.461+02:00  INFO 12332 --- [ocado-licytacje] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-06-12T14:28:20.684+02:00  INFO 12332 --- [ocado-licytacje] [Thread-22] c.s.api.socket_mode.SocketModeClient     : onClose listener is called (session id: b8489f82-48b8-4402-90eb-68dba76d5794, reason: com.slack.api.jakarta_socket_mode.impl.JakartaSocketModeClientTyrusImpl did it)
+2025-06-12T14:28:20.684+02:00  INFO 12332 --- [ocado-licytacje] [Thread-22] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-12T14:28:20.684+02:00  INFO 12332 --- [ocado-licytacje] [Thread-22] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2025-06-12T14:28:20.689+02:00  INFO 12332 --- [ocado-licytacje] [Thread-22] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2025-06-12T14:28:20.789+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] p.e.p.o.OcadoLicytacjeApplication        : Starting OcadoLicytacjeApplication using Java 17.0.14 with PID 12332 (C:\Users\User\IdeaProjects\Robimy-dobro-licytacje\build\classes\java\main started by User in C:\Users\User\IdeaProjects\Robimy-dobro-licytacje)
+2025-06-12T14:28:20.789+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] p.e.p.o.OcadoLicytacjeApplication        : No active profile set, falling back to 1 default profile: "default"
+2025-06-12T14:28:21.097+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-12T14:28:21.127+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 28 ms. Found 8 JPA repository interfaces.
+2025-06-12T14:28:21.264+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8190 (http)
+2025-06-12T14:28:21.264+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-06-12T14:28:21.264+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-06-12T14:28:21.304+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] o.a.c.c.C.[.[localhost].[/licytacje]     : Initializing Spring embedded WebApplicationContext
+2025-06-12T14:28:21.304+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 515 ms
+2025-06-12T14:28:21.340+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2025-06-12T14:28:21.412+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection org.postgresql.jdbc.PgConnection@258ac705
+2025-06-12T14:28:21.412+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2025-06-12T14:28:21.412+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.database                       : Set default schema name to public
+2025-06-12T14:28:21.642+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.changelog                      : Reading from public.databasechangelog
+2025-06-12T14:28:21.663+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.ui                             : Database is up to date, no changesets to execute
+2025-06-12T14:28:21.667+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.changelog                      : Reading from public.databasechangelog
+2025-06-12T14:28:21.672+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.util                           : UPDATE SUMMARY
+2025-06-12T14:28:21.672+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Run:                          0
+2025-06-12T14:28:21.672+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Previously run:               6
+2025-06-12T14:28:21.672+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Filtered out:                 0
+2025-06-12T14:28:21.672+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.util                           : -------------------------------
+2025-06-12T14:28:21.672+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Total change sets:            6
+2025-06-12T14:28:21.674+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Update summary generated
+2025-06-12T14:28:21.674+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] liquibase.command                        : Command execution complete
+2025-06-12T14:28:21.695+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-12T14:28:21.695+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-06-12T14:28:21.717+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-12T14:28:21.717+02:00  WARN 12332 --- [ocado-licytacje] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-06-12T14:28:21.717+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-3)']
+	Database driver: undefined/unknown
+	Database version: 17.4
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-12T14:28:21.869+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-12T14:28:22.201+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-12T14:28:24.590+02:00  INFO 12332 --- [ocado-licytacje] [Grizzly(2)] c.s.api.socket_mode.SocketModeClient     : New session is open (session id: 54883de5-1798-4db7-ae1f-50e59cde9a2d)
+2025-06-12T14:28:24.686+02:00  WARN 12332 --- [ocado-licytacje] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-06-12T14:28:24.953+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-06-12T14:28:25.013+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8190 (http) with context path '/licytacje'
+2025-06-12T14:28:25.041+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] p.e.p.o.OcadoLicytacjeApplication        : Started OcadoLicytacjeApplication in 4.286 seconds (process running for 152.547)
+2025-06-12T14:28:25.044+02:00  INFO 12332 --- [ocado-licytacje] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-06-12T14:28:28.553+02:00  INFO 12332 --- [ocado-licytacje] [socket-mode-message-processor-worker-184] p.e.p.o.config.SlackSocketModeConfig     : Odebrany tekst z komendy: '2025-06-12'
+2025-06-12T14:28:29.644+02:00  INFO 12332 --- [ocado-licytacje] [socket-mode-message-processor-worker-184] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=187
+2025-06-12T14:28:30.364+02:00  INFO 12332 --- [ocado-licytacje] [socket-mode-message-processor-worker-184] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=188
+2025-06-12T14:28:31.208+02:00  INFO 12332 --- [ocado-licytacje] [socket-mode-message-processor-worker-184] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=189
+2025-06-12T14:28:32.754+02:00  INFO 12332 --- [ocado-licytacje] [socket-mode-message-processor-worker-184] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=194
+2025-06-12T14:28:33.985+02:00  INFO 12332 --- [ocado-licytacje] [socket-mode-message-processor-worker-184] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=195
+2025-06-12T14:28:35.617+02:00  INFO 12332 --- [ocado-licytacje] [socket-mode-message-processor-worker-184] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=190
+2025-06-12T14:28:36.299+02:00  INFO 12332 --- [ocado-licytacje] [socket-mode-message-processor-worker-184] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=191
+2025-06-12T14:28:37.168+02:00  INFO 12332 --- [ocado-licytacje] [socket-mode-message-processor-worker-184] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=192
+2025-06-12T14:28:38.213+02:00  INFO 12332 --- [ocado-licytacje] [socket-mode-message-processor-worker-184] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=193
+2025-06-12T14:28:44.967+02:00  INFO 12332 --- [ocado-licytacje] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-06-12T14:28:45.186+02:00  INFO 12332 --- [ocado-licytacje] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-06-12T14:28:45.422+02:00  INFO 12332 --- [ocado-licytacje] [SpringApplicationShutdownHook] c.s.api.socket_mode.SocketModeClient     : onClose listener is called (session id: 54883de5-1798-4db7-ae1f-50e59cde9a2d, reason: com.slack.api.jakarta_socket_mode.impl.JakartaSocketModeClientTyrusImpl did it)
+2025-06-12T14:28:45.425+02:00  INFO 12332 --- [ocado-licytacje] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-12T14:28:45.425+02:00  INFO 12332 --- [ocado-licytacje] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
+2025-06-12T14:28:45.432+02:00  INFO 12332 --- [ocado-licytacje] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
+2025-06-12T14:47:54.701+02:00  INFO 14280 --- [ocado-licytacje] [restartedMain] p.e.p.o.OcadoLicytacjeApplication        : Starting OcadoLicytacjeApplication using Java 17.0.14 with PID 14280 (C:\Users\User\IdeaProjects\Robimy-dobro-licytacje\build\classes\java\main started by User in C:\Users\User\IdeaProjects\Robimy-dobro-licytacje)
+2025-06-12T14:47:54.702+02:00  INFO 14280 --- [ocado-licytacje] [restartedMain] p.e.p.o.OcadoLicytacjeApplication        : No active profile set, falling back to 1 default profile: "default"
+2025-06-12T14:47:54.754+02:00  INFO 14280 --- [ocado-licytacje] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-06-12T14:47:54.755+02:00  INFO 14280 --- [ocado-licytacje] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-06-12T14:47:55.651+02:00  INFO 14280 --- [ocado-licytacje] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-12T14:47:55.826+02:00  INFO 14280 --- [ocado-licytacje] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 164 ms. Found 8 JPA repository interfaces.
+2025-06-12T14:47:56.564+02:00  INFO 14280 --- [ocado-licytacje] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8190 (http)
+2025-06-12T14:47:56.576+02:00  INFO 14280 --- [ocado-licytacje] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-06-12T14:47:56.578+02:00  INFO 14280 --- [ocado-licytacje] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-06-12T14:47:56.634+02:00  INFO 14280 --- [ocado-licytacje] [restartedMain] o.a.c.c.C.[.[localhost].[/licytacje]     : Initializing Spring embedded WebApplicationContext
+2025-06-12T14:47:56.635+02:00  INFO 14280 --- [ocado-licytacje] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1880 ms
+2025-06-12T14:47:56.798+02:00  INFO 14280 --- [ocado-licytacje] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-06-12T14:47:56.993+02:00  INFO 14280 --- [ocado-licytacje] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@34ba9050
+2025-06-12T14:47:56.996+02:00  INFO 14280 --- [ocado-licytacje] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-06-12T14:47:57.169+02:00  INFO 14280 --- [ocado-licytacje] [restartedMain] liquibase.database                       : Set default schema name to public
+2025-06-12T14:47:57.740+02:00  INFO 14280 --- [ocado-licytacje] [restartedMain] liquibase.changelog                      : Reading from public.databasechangelog
+2025-06-12T14:47:57.798+02:00  INFO 14280 --- [ocado-licytacje] [restartedMain] liquibase.ui                             : Database is up to date, no changesets to execute
+2025-06-12T14:47:57.801+02:00  INFO 14280 --- [ocado-licytacje] [restartedMain] liquibase.changelog                      : Reading from public.databasechangelog
+2025-06-12T14:47:57.813+02:00  INFO 14280 --- [ocado-licytacje] [restartedMain] liquibase.util                           : UPDATE SUMMARY
+2025-06-12T14:47:57.814+02:00  INFO 14280 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Run:                          0
+2025-06-12T14:47:57.814+02:00  INFO 14280 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Previously run:               6
+2025-06-12T14:47:57.814+02:00  INFO 14280 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Filtered out:                 0
+2025-06-12T14:47:57.814+02:00  INFO 14280 --- [ocado-licytacje] [restartedMain] liquibase.util                           : -------------------------------
+2025-06-12T14:47:57.815+02:00  INFO 14280 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Total change sets:            6
+2025-06-12T14:47:57.817+02:00  INFO 14280 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Update summary generated
+2025-06-12T14:47:57.818+02:00  INFO 14280 --- [ocado-licytacje] [restartedMain] liquibase.command                        : Command execution complete
+2025-06-12T14:47:57.930+02:00  INFO 14280 --- [ocado-licytacje] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-12T14:47:58.027+02:00  INFO 14280 --- [ocado-licytacje] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.11.Final
+2025-06-12T14:47:58.084+02:00  INFO 14280 --- [ocado-licytacje] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-06-12T14:47:58.695+02:00  INFO 14280 --- [ocado-licytacje] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-12T14:47:58.755+02:00  WARN 14280 --- [ocado-licytacje] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-06-12T14:47:58.771+02:00  INFO 14280 --- [ocado-licytacje] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.4
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-12T14:47:59.862+02:00  INFO 14280 --- [ocado-licytacje] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-12T14:48:00.161+02:00  INFO 14280 --- [ocado-licytacje] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-12T14:55:49.307+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] p.e.p.o.OcadoLicytacjeApplication        : Starting OcadoLicytacjeApplication using Java 17.0.14 with PID 10880 (C:\Users\User\IdeaProjects\Robimy-dobro-licytacje\build\classes\java\main started by User in C:\Users\User\IdeaProjects\Robimy-dobro-licytacje)
+2025-06-12T14:55:49.312+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] p.e.p.o.OcadoLicytacjeApplication        : No active profile set, falling back to 1 default profile: "default"
+2025-06-12T14:55:49.445+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-06-12T14:55:49.446+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-06-12T14:55:50.725+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-12T14:55:50.954+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 217 ms. Found 8 JPA repository interfaces.
+2025-06-12T14:55:51.753+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8190 (http)
+2025-06-12T14:55:51.771+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-06-12T14:55:51.771+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-06-12T14:55:51.850+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] o.a.c.c.C.[.[localhost].[/licytacje]     : Initializing Spring embedded WebApplicationContext
+2025-06-12T14:55:51.850+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2402 ms
+2025-06-12T14:55:52.042+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-06-12T14:55:52.376+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@33710d22
+2025-06-12T14:55:52.378+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-06-12T14:55:52.558+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.database                       : Set default schema name to public
+2025-06-12T14:55:53.157+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.changelog                      : Reading from public.databasechangelog
+2025-06-12T14:55:53.217+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.ui                             : Database is up to date, no changesets to execute
+2025-06-12T14:55:53.217+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.changelog                      : Reading from public.databasechangelog
+2025-06-12T14:55:53.223+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.util                           : UPDATE SUMMARY
+2025-06-12T14:55:53.223+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Run:                          0
+2025-06-12T14:55:53.223+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Previously run:               6
+2025-06-12T14:55:53.223+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Filtered out:                 0
+2025-06-12T14:55:53.223+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.util                           : -------------------------------
+2025-06-12T14:55:53.223+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Total change sets:            6
+2025-06-12T14:55:53.223+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Update summary generated
+2025-06-12T14:55:53.223+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.command                        : Command execution complete
+2025-06-12T14:55:53.303+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-12T14:55:53.391+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.11.Final
+2025-06-12T14:55:53.423+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-06-12T14:55:53.786+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-12T14:55:53.846+02:00  WARN 10880 --- [ocado-licytacje] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-06-12T14:55:53.863+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.4
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-12T14:55:54.934+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-12T14:55:55.224+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-12T14:55:58.384+02:00  INFO 10880 --- [ocado-licytacje] [Grizzly(2)] c.s.api.socket_mode.SocketModeClient     : New session is open (session id: 77e2795c-f166-42c7-a2c4-b709660a6bba)
+2025-06-12T14:55:58.635+02:00  WARN 10880 --- [ocado-licytacje] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-06-12T14:55:58.976+02:00  INFO 10880 --- [ocado-licytacje] [Grizzly(2)] c.s.api.socket_mode.SocketModeClient     : New session is open (session id: 81ee8aa9-a7d2-49c2-84c4-cd7892a1711e)
+2025-06-12T14:55:59.144+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-06-12T14:55:59.312+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8190 (http) with context path '/licytacje'
+2025-06-12T14:55:59.332+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] p.e.p.o.OcadoLicytacjeApplication        : Started OcadoLicytacjeApplication in 11.126 seconds (process running for 12.224)
+2025-06-12T14:56:02.329+02:00  INFO 10880 --- [ocado-licytacje] [socket-mode-session-cleaner-worker-113] c.s.api.socket_mode.SocketModeClient     : onClose listener is called (session id: 77e2795c-f166-42c7-a2c4-b709660a6bba, reason: com.slack.api.jakarta_socket_mode.impl.JakartaSocketModeClientTyrusImpl did it)
+2025-06-12T14:56:02.928+02:00  INFO 10880 --- [ocado-licytacje] [Grizzly(2)] c.s.api.socket_mode.SocketModeClient     : New session is open (session id: 69ba0f05-19c7-4eec-8c9a-de3d9339fe02)
+2025-06-12T14:56:05.892+02:00  INFO 10880 --- [ocado-licytacje] [socket-mode-session-monitor-worker-71] c.s.api.socket_mode.SocketModeClient     : The current session is no longer active. Going to reconnect to the Socket Mode server.
+2025-06-12T14:56:06.320+02:00  INFO 10880 --- [ocado-licytacje] [socket-mode-session-cleaner-worker-130] c.s.api.socket_mode.SocketModeClient     : onClose listener is called (session id: 81ee8aa9-a7d2-49c2-84c4-cd7892a1711e, reason: com.slack.api.jakarta_socket_mode.impl.JakartaSocketModeClientTyrusImpl did it)
+2025-06-12T14:56:06.517+02:00  INFO 10880 --- [ocado-licytacje] [Grizzly(2)] c.s.api.socket_mode.SocketModeClient     : New session is open (session id: ac8e917d-e4d2-413a-809e-e83e3ea00baa)
+2025-06-12T14:56:06.956+02:00  INFO 10880 --- [ocado-licytacje] [Grizzly(2)] c.s.api.socket_mode.SocketModeClient     : New session is open (session id: 326056e2-9767-4acf-8960-4a826c48680d)
+2025-06-12T14:56:09.905+02:00  INFO 10880 --- [ocado-licytacje] [socket-mode-session-cleaner-worker-145] c.s.api.socket_mode.SocketModeClient     : onClose listener is called (session id: 69ba0f05-19c7-4eec-8c9a-de3d9339fe02, reason: com.slack.api.jakarta_socket_mode.impl.JakartaSocketModeClientTyrusImpl did it)
+2025-06-12T14:56:10.011+02:00  WARN 10880 --- [ocado-licytacje] [Grizzly(2)] c.s.api.socket_mode.SocketModeClient     : Failed to send a ping message (session id: ac8e917d-e4d2-413a-809e-e83e3ea00baa, error: Task java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask@429a5ba2[Not completed, task = java.util.concurrent.Executors$RunnableAdapter@135dc4f9[Wrapped task = org.glassfish.tyrus.core.TyrusSession$IdleTimeoutCommand@4d070c23]] rejected from java.util.concurrent.ScheduledThreadPoolExecutor@5e9778da[Terminated, pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 63])
+2025-06-12T14:56:10.012+02:00  INFO 10880 --- [ocado-licytacje] [socket-mode-session-cleaner-worker-113] c.s.api.socket_mode.SocketModeClient     : onClose listener is called (session id: ac8e917d-e4d2-413a-809e-e83e3ea00baa, reason: com.slack.api.jakarta_socket_mode.impl.JakartaSocketModeClientTyrusImpl did it)
+2025-06-12T14:56:10.995+02:00  INFO 10880 --- [ocado-licytacje] [Grizzly(2)] c.s.api.socket_mode.SocketModeClient     : New session is open (session id: cc2a10ac-485e-4bde-b268-981294fe82df)
+2025-06-12T14:56:14.377+02:00  INFO 10880 --- [ocado-licytacje] [socket-mode-session-cleaner-worker-130] c.s.api.socket_mode.SocketModeClient     : onClose listener is called (session id: 326056e2-9767-4acf-8960-4a826c48680d, reason: com.slack.api.jakarta_socket_mode.impl.JakartaSocketModeClientTyrusImpl did it)
+2025-06-12T14:56:14.958+02:00  INFO 10880 --- [ocado-licytacje] [Grizzly(2)] c.s.api.socket_mode.SocketModeClient     : New session is open (session id: 1e247bbe-054d-465e-8995-2a7078bf371f)
+2025-06-12T14:56:15.075+02:00  INFO 10880 --- [ocado-licytacje] [socket-mode-session-cleaner-worker-145] c.s.api.socket_mode.SocketModeClient     : onClose listener is called (session id: cc2a10ac-485e-4bde-b268-981294fe82df, reason: com.slack.api.jakarta_socket_mode.impl.JakartaSocketModeClientTyrusImpl did it)
+2025-06-12T14:56:15.128+02:00  WARN 10880 --- [ocado-licytacje] [socket-mode-session-monitor-worker-71] c.s.api.socket_mode.SocketModeClient     : Failed to send a ping message (session id: 1e247bbe-054d-465e-8995-2a7078bf371f, error: Task java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask@2940b644[Not completed, task = java.util.concurrent.Executors$RunnableAdapter@67643f43[Wrapped task = org.glassfish.tyrus.core.TyrusSession$IdleTimeoutCommand@6b5ea905]] rejected from java.util.concurrent.ScheduledThreadPoolExecutor@7ab6dd18[Terminated, pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 11])
+2025-06-12T14:56:15.128+02:00  INFO 10880 --- [ocado-licytacje] [socket-mode-session-monitor-worker-71] c.s.api.socket_mode.SocketModeClient     : The current session is no longer active. Going to reconnect to the Socket Mode server.
+2025-06-12T14:56:15.733+02:00  INFO 10880 --- [ocado-licytacje] [Grizzly(2)] c.s.api.socket_mode.SocketModeClient     : New session is open (session id: b7653a0e-1808-4d6c-adf5-28d2ec133c56)
+2025-06-12T14:56:15.823+02:00  INFO 10880 --- [ocado-licytacje] [Grizzly(2)] c.s.api.socket_mode.SocketModeClient     : New session is open (session id: 5c59f1ae-cb2b-4473-bd0e-c504e058d42a)
+2025-06-12T14:56:19.049+02:00  INFO 10880 --- [ocado-licytacje] [socket-mode-session-cleaner-worker-113] c.s.api.socket_mode.SocketModeClient     : onClose listener is called (session id: 1e247bbe-054d-465e-8995-2a7078bf371f, reason: com.slack.api.jakarta_socket_mode.impl.JakartaSocketModeClientTyrusImpl did it)
+2025-06-12T14:56:19.064+02:00  WARN 10880 --- [ocado-licytacje] [Grizzly(2)] c.s.api.socket_mode.SocketModeClient     : Failed to send a ping message (session id: b7653a0e-1808-4d6c-adf5-28d2ec133c56, error: Task java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask@4fdb1f2a[Not completed, task = java.util.concurrent.Executors$RunnableAdapter@12974fbd[Wrapped task = org.glassfish.tyrus.core.TyrusSession$IdleTimeoutCommand@6e31b7d2]] rejected from java.util.concurrent.ScheduledThreadPoolExecutor@21d1ddbd[Terminated, pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 65])
+2025-06-12T14:56:19.064+02:00  INFO 10880 --- [ocado-licytacje] [socket-mode-session-cleaner-worker-130] c.s.api.socket_mode.SocketModeClient     : onClose listener is called (session id: b7653a0e-1808-4d6c-adf5-28d2ec133c56, reason: com.slack.api.jakarta_socket_mode.impl.JakartaSocketModeClientTyrusImpl did it)
+2025-06-12T14:56:41.999+02:00  INFO 10880 --- [ocado-licytacje] [socket-mode-message-processor-worker-72] p.e.p.o.config.SlackSocketModeConfig     : Odebrany tekst z komendy: ''
+2025-06-12T14:56:42.000+02:00  INFO 10880 --- [ocado-licytacje] [socket-mode-message-processor-worker-72] p.e.p.o.config.SlackSocketModeConfig     : Podano datę rozpoczęcia w błędnym formacie. Prawidłowy format to: YYYY-MM-DD
+
+java.time.format.DateTimeParseException: Text '' could not be parsed at index 0
+	at java.base/java.time.format.DateTimeFormatter.parseResolved0(DateTimeFormatter.java:2052) ~[na:na]
+	at java.base/java.time.format.DateTimeFormatter.parse(DateTimeFormatter.java:1954) ~[na:na]
+	at java.base/java.time.LocalDate.parse(LocalDate.java:430) ~[na:na]
+	at java.base/java.time.LocalDate.parse(LocalDate.java:415) ~[na:na]
+	at prw.edu.pl.ocadolicytacje.config.SlackSocketModeConfig.lambda$slackApp$0(SlackSocketModeConfig.java:105) ~[main/:na]
+	at com.slack.api.bolt.App.runHandler(App.java:1180) ~[bolt-1.45.3.jar:1.45.3]
+	at com.slack.api.bolt.App.lambda$runMiddleware$5(App.java:1110) ~[bolt-1.45.3.jar:1.45.3]
+	at com.slack.api.bolt.middleware.builtin.IgnoringSelfEvents.apply(IgnoringSelfEvents.java:108) ~[bolt-1.45.3.jar:1.45.3]
+	at com.slack.api.bolt.App.runMiddleware(App.java:1110) ~[bolt-1.45.3.jar:1.45.3]
+	at com.slack.api.bolt.App.lambda$runMiddleware$6(App.java:1113) ~[bolt-1.45.3.jar:1.45.3]
+	at com.slack.api.bolt.middleware.builtin.SingleTeamAuthorization.apply(SingleTeamAuthorization.java:98) ~[bolt-1.45.3.jar:1.45.3]
+	at com.slack.api.bolt.App.runMiddleware(App.java:1113) ~[bolt-1.45.3.jar:1.45.3]
+	at com.slack.api.bolt.App.lambda$runMiddleware$6(App.java:1113) ~[bolt-1.45.3.jar:1.45.3]
+	at com.slack.api.bolt.middleware.builtin.RequestVerification.apply(RequestVerification.java:27) ~[bolt-1.45.3.jar:1.45.3]
+	at com.slack.api.bolt.App.runMiddleware(App.java:1113) ~[bolt-1.45.3.jar:1.45.3]
+	at com.slack.api.bolt.App.lambda$runMiddleware$6(App.java:1113) ~[bolt-1.45.3.jar:1.45.3]
+	at com.slack.api.bolt.middleware.builtin.SSLCheck.apply(SSLCheck.java:51) ~[bolt-1.45.3.jar:1.45.3]
+	at com.slack.api.bolt.App.runMiddleware(App.java:1113) ~[bolt-1.45.3.jar:1.45.3]
+	at com.slack.api.bolt.App.run(App.java:598) ~[bolt-1.45.3.jar:1.45.3]
+	at com.slack.api.bolt.jakarta_socket_mode.SocketModeApp.runBoltApp(SocketModeApp.java:113) ~[bolt-jakarta-socket-mode-1.45.3.jar:1.45.3]
+	at com.slack.api.bolt.jakarta_socket_mode.SocketModeApp.lambda$buildSocketModeClientFactory$2(SocketModeApp.java:90) ~[bolt-jakarta-socket-mode-1.45.3.jar:1.45.3]
+	at com.slack.api.socket_mode.SocketModeClient.processMessage(SocketModeClient.java:386) ~[slack-api-client-1.45.3.jar:1.45.3]
+	at com.slack.api.socket_mode.SocketModeClient.lambda$initializeMessageProcessorExecutor$0(SocketModeClient.java:166) ~[slack-api-client-1.45.3.jar:1.45.3]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-06-12T14:56:42.773+02:00  INFO 10880 --- [ocado-licytacje] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 2 class path changes (0 additions, 2 deletions, 0 modifications)
+2025-06-12T14:56:42.781+02:00  INFO 10880 --- [ocado-licytacje] [Thread-20] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-06-12T14:56:43.102+02:00  INFO 10880 --- [ocado-licytacje] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-06-12T14:56:43.365+02:00  INFO 10880 --- [ocado-licytacje] [Thread-20] c.s.api.socket_mode.SocketModeClient     : onClose listener is called (session id: 5c59f1ae-cb2b-4473-bd0e-c504e058d42a, reason: com.slack.api.jakarta_socket_mode.impl.JakartaSocketModeClientTyrusImpl did it)
+2025-06-12T14:56:43.368+02:00  INFO 10880 --- [ocado-licytacje] [Thread-20] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-12T14:56:43.372+02:00  INFO 10880 --- [ocado-licytacje] [Thread-20] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-06-12T14:56:43.374+02:00  INFO 10880 --- [ocado-licytacje] [Thread-20] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-06-12T14:56:43.566+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] p.e.p.o.OcadoLicytacjeApplication        : Starting OcadoLicytacjeApplication using Java 17.0.14 with PID 10880 (C:\Users\User\IdeaProjects\Robimy-dobro-licytacje\build\classes\java\main started by User in C:\Users\User\IdeaProjects\Robimy-dobro-licytacje)
+2025-06-12T14:56:43.566+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] p.e.p.o.OcadoLicytacjeApplication        : No active profile set, falling back to 1 default profile: "default"
+2025-06-12T14:56:43.936+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-12T14:56:43.964+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 27 ms. Found 8 JPA repository interfaces.
+2025-06-12T14:56:44.110+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8190 (http)
+2025-06-12T14:56:44.112+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-06-12T14:56:44.112+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-06-12T14:56:44.139+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] o.a.c.c.C.[.[localhost].[/licytacje]     : Initializing Spring embedded WebApplicationContext
+2025-06-12T14:56:44.139+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 556 ms
+2025-06-12T14:56:44.171+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2025-06-12T14:56:44.241+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@136f727f
+2025-06-12T14:56:44.241+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2025-06-12T14:56:44.256+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.database                       : Set default schema name to public
+2025-06-12T14:56:44.443+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.changelog                      : Reading from public.databasechangelog
+2025-06-12T14:56:44.463+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.ui                             : Database is up to date, no changesets to execute
+2025-06-12T14:56:44.463+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.changelog                      : Reading from public.databasechangelog
+2025-06-12T14:56:44.466+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.util                           : UPDATE SUMMARY
+2025-06-12T14:56:44.466+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Run:                          0
+2025-06-12T14:56:44.466+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Previously run:               6
+2025-06-12T14:56:44.466+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Filtered out:                 0
+2025-06-12T14:56:44.466+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.util                           : -------------------------------
+2025-06-12T14:56:44.466+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Total change sets:            6
+2025-06-12T14:56:44.466+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Update summary generated
+2025-06-12T14:56:44.466+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.command                        : Command execution complete
+2025-06-12T14:56:44.496+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-12T14:56:44.501+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-06-12T14:56:44.512+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-12T14:56:44.514+02:00  WARN 10880 --- [ocado-licytacje] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-06-12T14:56:44.514+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-2)']
+	Database driver: undefined/unknown
+	Database version: 17.4
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-12T14:56:44.652+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-12T14:56:44.936+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-12T14:56:46.307+02:00  INFO 10880 --- [ocado-licytacje] [Grizzly(2)] c.s.api.socket_mode.SocketModeClient     : New session is open (session id: 7964fb53-789d-4227-bca6-ee22961ef280)
+2025-06-12T14:56:46.380+02:00  WARN 10880 --- [ocado-licytacje] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-06-12T14:56:46.478+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-06-12T14:56:46.493+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8190 (http) with context path '/licytacje'
+2025-06-12T14:56:46.513+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] p.e.p.o.OcadoLicytacjeApplication        : Started OcadoLicytacjeApplication in 3.059 seconds (process running for 59.409)
+2025-06-12T14:56:46.518+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-06-12T14:56:47.942+02:00  INFO 10880 --- [ocado-licytacje] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 2 class path changes (2 additions, 0 deletions, 0 modifications)
+2025-06-12T14:56:47.942+02:00  INFO 10880 --- [ocado-licytacje] [Thread-25] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-06-12T14:56:48.115+02:00  INFO 10880 --- [ocado-licytacje] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-06-12T14:56:48.325+02:00  INFO 10880 --- [ocado-licytacje] [Thread-25] c.s.api.socket_mode.SocketModeClient     : onClose listener is called (session id: 7964fb53-789d-4227-bca6-ee22961ef280, reason: com.slack.api.jakarta_socket_mode.impl.JakartaSocketModeClientTyrusImpl did it)
+2025-06-12T14:56:48.326+02:00  INFO 10880 --- [ocado-licytacje] [Thread-25] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-12T14:56:48.326+02:00  INFO 10880 --- [ocado-licytacje] [Thread-25] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2025-06-12T14:56:48.326+02:00  INFO 10880 --- [ocado-licytacje] [Thread-25] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2025-06-12T14:56:48.425+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] p.e.p.o.OcadoLicytacjeApplication        : Starting OcadoLicytacjeApplication using Java 17.0.14 with PID 10880 (C:\Users\User\IdeaProjects\Robimy-dobro-licytacje\build\classes\java\main started by User in C:\Users\User\IdeaProjects\Robimy-dobro-licytacje)
+2025-06-12T14:56:48.425+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] p.e.p.o.OcadoLicytacjeApplication        : No active profile set, falling back to 1 default profile: "default"
+2025-06-12T14:56:48.695+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-12T14:56:48.729+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 37 ms. Found 8 JPA repository interfaces.
+2025-06-12T14:56:48.864+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8190 (http)
+2025-06-12T14:56:48.864+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-06-12T14:56:48.864+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-06-12T14:56:48.894+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] o.a.c.c.C.[.[localhost].[/licytacje]     : Initializing Spring embedded WebApplicationContext
+2025-06-12T14:56:48.894+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 469 ms
+2025-06-12T14:56:48.924+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2025-06-12T14:56:48.989+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection org.postgresql.jdbc.PgConnection@2e61d871
+2025-06-12T14:56:48.989+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2025-06-12T14:56:49.002+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.database                       : Set default schema name to public
+2025-06-12T14:56:49.189+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.changelog                      : Reading from public.databasechangelog
+2025-06-12T14:56:49.205+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.ui                             : Database is up to date, no changesets to execute
+2025-06-12T14:56:49.206+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.changelog                      : Reading from public.databasechangelog
+2025-06-12T14:56:49.209+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.util                           : UPDATE SUMMARY
+2025-06-12T14:56:49.209+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Run:                          0
+2025-06-12T14:56:49.209+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Previously run:               6
+2025-06-12T14:56:49.209+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Filtered out:                 0
+2025-06-12T14:56:49.209+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.util                           : -------------------------------
+2025-06-12T14:56:49.209+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Total change sets:            6
+2025-06-12T14:56:49.209+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.util                           : Update summary generated
+2025-06-12T14:56:49.210+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] liquibase.command                        : Command execution complete
+2025-06-12T14:56:49.239+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-12T14:56:49.246+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-06-12T14:56:49.261+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-12T14:56:49.263+02:00  WARN 10880 --- [ocado-licytacje] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-06-12T14:56:49.265+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-3)']
+	Database driver: undefined/unknown
+	Database version: 17.4
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-12T14:56:49.397+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-12T14:56:49.648+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-12T14:56:51.019+02:00  INFO 10880 --- [ocado-licytacje] [Grizzly(1)] c.s.api.socket_mode.SocketModeClient     : New session is open (session id: 03ce1776-3d18-4c90-99f4-6bffd8ed5508)
+2025-06-12T14:56:51.088+02:00  WARN 10880 --- [ocado-licytacje] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-06-12T14:56:51.172+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-06-12T14:56:51.184+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8190 (http) with context path '/licytacje'
+2025-06-12T14:56:51.184+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] p.e.p.o.OcadoLicytacjeApplication        : Started OcadoLicytacjeApplication in 2.787 seconds (process running for 64.087)
+2025-06-12T14:56:51.184+02:00  INFO 10880 --- [ocado-licytacje] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-06-12T14:57:06.265+02:00  INFO 10880 --- [ocado-licytacje] [socket-mode-message-processor-worker-263] p.e.p.o.config.SlackSocketModeConfig     : Odebrany tekst z komendy: '2025-06-12'
+2025-06-12T14:57:08.423+02:00  INFO 10880 --- [ocado-licytacje] [socket-mode-message-processor-worker-263] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=196
+2025-06-12T14:57:09.158+02:00  INFO 10880 --- [ocado-licytacje] [socket-mode-message-processor-worker-263] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=197
+2025-06-12T14:57:12.427+02:00  INFO 10880 --- [ocado-licytacje] [socket-mode-message-processor-worker-263] p.e.p.o.config.SlackSocketModeConfig     : Odebrany tekst z komendy: '2025-06-12'
+2025-06-12T14:57:13.439+02:00  INFO 10880 --- [ocado-licytacje] [socket-mode-message-processor-worker-263] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=196
+2025-06-12T14:57:14.635+02:00  INFO 10880 --- [ocado-licytacje] [socket-mode-message-processor-worker-263] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=197
+2025-06-12T14:57:15.333+02:00  INFO 10880 --- [ocado-licytacje] [socket-mode-message-processor-worker-263] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=198
+2025-06-12T14:57:16.035+02:00  INFO 10880 --- [ocado-licytacje] [socket-mode-message-processor-worker-263] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=199
+2025-06-12T15:00:07.658+02:00  INFO 10880 --- [ocado-licytacje] [socket-mode-message-processor-worker-263] p.e.p.o.config.SlackSocketModeConfig     : Odebrany tekst z komendy: '2025-06-12'
+2025-06-12T15:00:08.587+02:00  INFO 10880 --- [ocado-licytacje] [socket-mode-message-processor-worker-263] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=200
+2025-06-12T15:00:09.531+02:00  INFO 10880 --- [ocado-licytacje] [socket-mode-message-processor-worker-263] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=201
+2025-06-12T15:00:10.592+02:00  INFO 10880 --- [ocado-licytacje] [socket-mode-message-processor-worker-263] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=196
+2025-06-12T15:00:11.718+02:00  INFO 10880 --- [ocado-licytacje] [socket-mode-message-processor-worker-263] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=197
+2025-06-12T15:00:12.706+02:00  INFO 10880 --- [ocado-licytacje] [socket-mode-message-processor-worker-263] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=198
+2025-06-12T15:00:14.286+02:00  INFO 10880 --- [ocado-licytacje] [socket-mode-message-processor-worker-263] .e.p.o.d.s.SlackAuctionThreadServiceImpl : Wysyłanie aukcji do Slacka, channelId=C08TAS7KL7M, auctionId=199
+2025-06-12T15:02:10.290+02:00  INFO 10880 --- [ocado-licytacje] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-06-12T15:02:10.461+02:00  INFO 10880 --- [ocado-licytacje] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-06-12T15:02:10.667+02:00  INFO 10880 --- [ocado-licytacje] [SpringApplicationShutdownHook] c.s.api.socket_mode.SocketModeClient     : onClose listener is called (session id: 03ce1776-3d18-4c90-99f4-6bffd8ed5508, reason: com.slack.api.jakarta_socket_mode.impl.JakartaSocketModeClientTyrusImpl did it)
+2025-06-12T15:02:10.681+02:00  INFO 10880 --- [ocado-licytacje] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-12T15:02:10.683+02:00  INFO 10880 --- [ocado-licytacje] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
+2025-06-12T15:02:10.701+02:00  INFO 10880 --- [ocado-licytacje] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.

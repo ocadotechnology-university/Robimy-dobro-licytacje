@@ -104,8 +104,8 @@ public class SlackSocketModeConfig {
             try {
                 final LocalDate date = LocalDate.parse(text.trim());
                 generalSlackAuctionServiceImpl.createAuctionThreadAndPostOnChannel(date, ctx);
-                auctionActivationServiceImpl.activateScheduledAuction();
-                auctionEndServiceImpl.endAuctionsManual(ctx);
+//                auctionActivationServiceImpl.activateScheduledAuction();
+//                auctionEndServiceImpl.endAuctionsManual(ctx);
 
                 return ctx.ack("Aukcje dla " + date + " zostały przygotowane");
             } catch (DateTimeParseException e) {
@@ -237,7 +237,6 @@ public class SlackSocketModeConfig {
 
         return app;
     }
-
 
     //TODO - DODANIE KOMENDY, do generowania raportu
 
