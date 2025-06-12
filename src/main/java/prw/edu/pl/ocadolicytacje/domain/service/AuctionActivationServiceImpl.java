@@ -48,9 +48,11 @@ public class AuctionActivationServiceImpl implements AuctionActivationService {
     public void activateAuctionManually(SlashCommandContext ctx) throws SlackApiException, IOException {
         LocalDateTime now = LocalDateTime.now(clock);
         LocalDate today = now.toLocalDate();
-        LocalDateTime startOfToday = today.atTime(6, 0);
+        LocalDateTime startOfToday = today.atTime(0, 0);
+        LocalDateTime endOfToday = today.atTime(23, 59);
 
-        List<Auction> auctionsToActivate = auctionRepository.findByStatusFalseAndStartDateTime(startOfToday);
+        List<Auction> auctionsToActivate = auctionRepository.findAllByStartDateTimeBetween(startOfToday, endOfToday);
+        System.out.println(auctionsToActivate);
 
         for (Auction auction : auctionsToActivate) {
             auction.setStatus(true);

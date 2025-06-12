@@ -218,7 +218,7 @@ public class SlackSocketModeConfig {
             }
         });
 
-        app.command("aktywuj_aukcje", (req, ctx) -> {
+        app.command("/aktywuj_aukcje", (req, ctx) -> {
             String text = req.getPayload().getText();
             log.info("Odebrany tekst z komendy: '{}'", text);
             try {

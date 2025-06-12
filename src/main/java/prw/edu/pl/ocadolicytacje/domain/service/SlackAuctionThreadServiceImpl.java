@@ -127,7 +127,6 @@ public class SlackAuctionThreadServiceImpl implements SlackAuctionThreadService 
                         ":page_facing_up: *Opis:* " + auction.getDescription() + "\n" +
                         ":hourglass_flowing_sand: *Start:* " + auction.getStartDateTime() + "\n" +
                         ":stopwatch: *Koniec:* " + auction.getEndDateTime() + "\n" +
-//                        ":bust_in_silhouette: *Wystawiający:* " + auction.getSupplierEntity().getFirstName() + " " + auction.getSupplierEntity().getLastName() + "\n" +
                         ":bust_in_silhouette: *Wystawiający:* " +
                         (auction.getSupplierEntity() != null
                                 ? auction.getSupplierEntity().getFirstName() + " " + auction.getSupplierEntity().getLastName()

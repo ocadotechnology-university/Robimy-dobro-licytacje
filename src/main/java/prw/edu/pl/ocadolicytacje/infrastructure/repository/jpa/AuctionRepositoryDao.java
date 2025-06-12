@@ -13,8 +13,5 @@ public interface AuctionRepositoryDao extends JpaRepository<AuctionEntity, Long>
 
     List<AuctionEntity> findByStatusFalseAndStartDateTime(LocalDateTime dateTime);
 
-    List<AuctionEntity> findByEndDateTime(LocalDateTime dateTime);
-
-
     List<AuctionEntity> findByEndDateTimeBetween(LocalDateTime startOfDay, LocalDateTime endOfDay);
 }

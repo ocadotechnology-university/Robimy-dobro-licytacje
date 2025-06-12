@@ -41,6 +41,7 @@ public class AuctionRepository {
 
     public List<Auction> findByStatusFalseAndStartDateTime(@NonNull final LocalDateTime startOfToday) {
         List<AuctionEntity> statusFalseAndStartDateTime = auctionRepositoryDao.findByStatusFalseAndStartDateTime(startOfToday);
+        System.out.println(statusFalseAndStartDateTime);
         return auctionInfrastructureToDomainMapper.map(statusFalseAndStartDateTime);
     }
 
