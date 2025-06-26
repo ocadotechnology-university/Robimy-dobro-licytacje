@@ -28,7 +28,7 @@ public class AuctionActivationServiceImpl implements AuctionActivationService {
     private final Clock clock;
 
     @Override
-    @Scheduled(cron = "0 26 14 * * *")
+    @Scheduled(cron = "0 25 15 * * *")
     @Transactional
     public void activateScheduledAuction() throws SlackApiException, IOException {
         LocalDateTime now = LocalDateTime.now(clock);
@@ -77,21 +77,21 @@ public class AuctionActivationServiceImpl implements AuctionActivationService {
         List<Auction> auctionsToActivate = auctionRepository.findAllByStartDateTimeBetween(startOfToday, endOfToday);
 
         if (auctionsToActivate.isEmpty()) {
-            ctx.respond("Brak aukcji do aktywacji na dzisiaj.");
+            ctx.respond("Brak aukcji do dezaktywacji na dzisiaj.");
             return;
         }
 
         for (Auction auction : auctionsToActivate) {
-            auction.setStatus(true);
+            auction.setStatus(false);
             auctionRepository.save(auction);
 
             slackAuctionThreadServiceImpl.updateSlackAuctionStatus(ctx, auction);
         }
-        ctx.respond("Aukcje zostały aktywowane ręcznie.");
+        ctx.respond("Aukcje zostały dezaktywowane ręcznie.");
     }
 
     @Override
-    @Scheduled(cron = "0 58 14 * * *")
+    @Scheduled(cron = "0 24 15 * * *")
     @Transactional
     public void deactivateScheduledAuction() throws SlackApiException, IOException {
         LocalDateTime now = LocalDateTime.now(clock);

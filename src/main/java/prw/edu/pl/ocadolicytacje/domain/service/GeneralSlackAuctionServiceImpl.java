@@ -30,10 +30,16 @@ public class GeneralSlackAuctionServiceImpl implements GeneralSlackAuctionServic
 
     private final SlackProperties slackProperties;
 
+    public boolean loadAuctionGuard = true;
+
 
     public void createAuctionThreadAndPostOnChannel(@NonNull final LocalDate startDate,
                                                     @NonNull final SlashCommandContext context) throws SlackApiException, IOException {
-        auctionCsvImportService.saveImportedModeratorSupplierAuctionEntities();
+
+        if (loadAuctionGuard) {
+            auctionCsvImportService.saveImportedModeratorSupplierAuctionEntities();
+            loadAuctionGuard = false;
+        }
 
         LocalDateTime startDateTime = startDate.atStartOfDay();
         LocalDateTime endDateTime= startDate.atTime(LocalTime.MAX);
@@ -46,6 +52,7 @@ public class GeneralSlackAuctionServiceImpl implements GeneralSlackAuctionServic
             auction.setLinkToThread(threadLink);
             auction.setSlackMessageTs(threadTs);
         }
+
         auctionRepository.saveAll(allByStartDateTimeBetween);
 
     }
@@ -54,7 +61,10 @@ public class GeneralSlackAuctionServiceImpl implements GeneralSlackAuctionServic
                                                     @NonNull LocalTime startTime,
                                                     @NonNull LocalTime endTime,
                                                     @NonNull final ViewSubmissionContext context) throws SlackApiException, IOException {
-        auctionCsvImportService.saveImportedModeratorSupplierAuctionEntities();
+        if (loadAuctionGuard) {
+            auctionCsvImportService.saveImportedModeratorSupplierAuctionEntities();
+            loadAuctionGuard = false;
+        }
 
         LocalDateTime startDateTime = startDate.atTime(startTime);
         LocalDateTime endDateTime = startDate.atTime(endTime);

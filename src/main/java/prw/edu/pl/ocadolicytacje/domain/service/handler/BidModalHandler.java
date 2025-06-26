@@ -11,12 +11,14 @@ import com.slack.api.model.view.ViewState;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import prw.edu.pl.ocadolicytacje.domain.model.Auction;
 import prw.edu.pl.ocadolicytacje.domain.model.Bid;
 import prw.edu.pl.ocadolicytacje.infrastructure.entity.AuctionEntity;
 import prw.edu.pl.ocadolicytacje.infrastructure.entity.BidEntity;
 import prw.edu.pl.ocadolicytacje.infrastructure.entity.ParticipantEntity;
 import prw.edu.pl.ocadolicytacje.infrastructure.repository.AuctionRepository;
+import prw.edu.pl.ocadolicytacje.infrastructure.repository.BidRepository;
 import prw.edu.pl.ocadolicytacje.infrastructure.repository.mapper.AuctionEntityRepository;
 import prw.edu.pl.ocadolicytacje.infrastructure.repository.mapper.BidEntityRepository;
 import prw.edu.pl.ocadolicytacje.infrastructure.repository.mapper.ParticipantEntityRepository;
@@ -36,6 +38,7 @@ public class BidModalHandler implements ViewSubmissionHandler {
     private final ParticipantEntityRepository participantEntityRepository;
     private final AuctionEntityRepository auctionEntityRepository;
     private final AuctionRepository auctionRepository;
+    private final BidRepository bidRepository;
 
     @Override
     public Response apply(ViewSubmissionRequest req, ViewSubmissionContext ctx) {
@@ -53,12 +56,17 @@ public class BidModalHandler implements ViewSubmissionHandler {
                 return ctx.ackWithErrors(Collections.singletonMap("bid_value", "Aukcja jest nieaktywna."));
             }
 
-            final List<Bid> bids = auction.getBids();
+//            final List<Bid> bids = auction.getBids();
+            final List<Bid> bids = bidRepository.findAllByAuctionId(auctionId);
+
+            System.out.println("bids: " + bids);
 
             BigDecimal highestBid = bids.stream()
                     .max(Comparator.comparing(Bid::getBidValue))
                     .map(Bid::getBidValue)
                     .orElse(auction.getBasePrice());
+
+            System.out.println("Highest Bid: " + highestBid);
 
             if (inputValueIsLowerThanActual(inputBidValue, highestBid)) {
                 log.info("Provided price: {} is lower than actual highest price: {}", inputBidValue, highestBid);

@@ -23,6 +23,7 @@ import prw.edu.pl.ocadolicytacje.domain.service.CsvReportServiceImpl;
 import prw.edu.pl.ocadolicytacje.domain.service.GeneralSlackAuctionServiceImpl;
 import prw.edu.pl.ocadolicytacje.domain.service.handler.BidButtonHandler;
 import prw.edu.pl.ocadolicytacje.domain.service.handler.BidModalHandler;
+import prw.edu.pl.ocadolicytacje.infrastructure.api.AuctionCsvImportService;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,12 +39,14 @@ import static com.slack.api.model.block.Blocks.input;
 import static com.slack.api.model.block.composition.BlockCompositions.plainText;
 import static com.slack.api.model.block.element.BlockElements.datePicker;
 import static com.slack.api.model.block.element.BlockElements.plainTextInput;
+//import static org.testcontainers.shaded.org.bouncycastle.oer.its.ieee1609dot2.EndEntityType.app;
 
 
 @Configuration
 @Slf4j
 public class SlackSocketModeConfig {
     public static final String START_AUKCJE_COMMAND = "/start_aukcje";
+    public static final String END_AUKCJE_COMMAND = "/end_aukcje";
 
     private final String botToken;
     private final String appToken;
@@ -100,6 +103,7 @@ public class SlackSocketModeConfig {
 
         app.command(START_AUKCJE_COMMAND, (req, ctx) -> {
             String text = req.getPayload().getText();
+
             log.info("Odebrany tekst z komendy: '{}'", text);
             try {
                 final LocalDate date = LocalDate.parse(text.trim());
@@ -235,6 +239,40 @@ public class SlackSocketModeConfig {
             }
         });
 
+        app.command("/dezaktywuj_aukcje", (req, ctx) -> {
+            String text = req.getPayload().getText();
+            log.info("Odebrany tekst z komendy: '{}'", text);
+            try {
+                auctionActivationServiceImpl.deactivateAuctionManually(ctx);
+
+                return ctx.ack();
+            } catch (DateTimeParseException e) {
+                log.info("Podano datę rozpoczęcia w błędnym formacie. Prawidłowy format to: YYYY-MM-DD", e);
+                return ctx.ack("Podano datę rozpoczęcia w błędnym formacie. Prawidłowy format to: YYYY-MM-DD");
+            }
+            catch (Exception e) {
+                log.error("Błąd podczas tworzenia aukcji", e);
+                return ctx.ack("❌ Wystąpił błąd podczas ręcznej deaktywacji aukcji: " + e.getMessage());
+            }
+        });
+
+        app.command("/enable_loading", (req, ctx) -> {
+            String text = req.getPayload().getText();
+
+            log.info("Odebrany tekst z komendy: '{}'", text);
+            try {
+                generalSlackAuctionServiceImpl.loadAuctionGuard = true;
+
+                return ctx.ack("Można ładować nowe aukcje do bazy");
+            } catch (DateTimeParseException e) {
+                log.info("Podano datę rozpoczęcia w błędnym formacie. Prawidłowy format to: YYYY-MM-DD", e);
+                return ctx.ack("Podano datę rozpoczęcia w błędnym formacie. Prawidłowy format to: YYYY-MM-DD");
+            }
+            catch (Exception e) {
+                log.error("Błąd podczas tworzenia aukcji", e);
+                return ctx.ack("❌ Wystąpił błąd podczas tworzenia aukcji: " + e.getMessage());
+            }
+        });
         return app;
     }
 
